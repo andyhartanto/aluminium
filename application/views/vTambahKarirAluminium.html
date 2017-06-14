@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aluminium - Karir</title>
+
+<link href="<?php echo base_url('assets/css/bootstrap.min.css');?>" rel="stylesheet">
+<link href="<?php echo base_url('assets/css/datepicker3.css');?>" rel="stylesheet">
+<link href="<?php echo base_url('assets/css/styles.css');?>" rel="stylesheet">
+
+<!--Icons-->
+<script src="<?php echo base_url('assets/js/lumino.glyphs.js');?>"></script>
+
+<!-- Tinymce -->
+<script src="<?php echo base_url('assets/tinymce/js/tinymce/tinymce.dev.js');?>"></script>
+<script src="<?php echo base_url('assets/tinymce/js/tinymce/plugins/table/plugin.dev.js');?>"></script>
+<script src="<?php echo base_url('assets/tinymce/js/tinymce/plugins/paste/plugin.dev.js');?>"></script>
+<script src="<?php echo base_url('assets/tinymce/js/tinymce/plugins/wordcount/plugin.js');?>"></script>
+<script src="<?php echo base_url('assets/tinymce/js/tinymce/plugins/spellchecker/plugin.dev.js');?>"></script>
+
+<script>
+	tinymce.init({
+		selector: "textarea",
+		theme: "modern",
+		plugins: [
+			"advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker toc",
+			"searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+			"save table contextmenu directionality emoticons template paste textcolor importcss colorpicker textpattern codesample"
+		],
+		external_plugins: {
+			//"moxiemanager": "/moxiemanager-php/plugin.js"
+		},
+		content_css: "css/development.css",
+		add_unload_trigger: false,
+
+		toolbar: "insertfile undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons table codesample",
+
+		image_advtab: true,
+		image_caption: true,
+
+		style_formats: [
+			{title: 'Bold text', format: 'h1'},
+			{title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+			{title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+			{title: 'Example 1', inline: 'span', classes: 'example1'},
+			{title: 'Example 2', inline: 'span', classes: 'example2'},
+			{title: 'Table styles'},
+			{title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+		],
+
+		template_replace_values : {
+			username : "Jack Black"
+		},
+
+		template_preview_replace_values : {
+			username : "Preview user name"
+		},
+
+		link_class_list: [
+			{title: 'Example 1', value: 'example1'},
+			{title: 'Example 2', value: 'example2'}
+		],
+
+		image_class_list: [
+			{title: 'Example 1', value: 'example1'},
+			{title: 'Example 2', value: 'example2'}
+		],
+
+		templates: [
+			{title: 'Some title 1', description: 'Some desc 1', content: '<strong class="red">My content: {$username}</strong>'},
+			{title: 'Some title 2', description: 'Some desc 2', url: 'development.html'}
+		],
+
+		setup: function(ed) {
+			/*ed.on(
+				'Init PreInit PostRender PreProcess PostProcess BeforeExecCommand ExecCommand Activate Deactivate ' +
+				'NodeChange SetAttrib Load Save BeforeSetContent SetContent BeforeGetContent GetContent Remove Show Hide' +
+				'Change Undo Redo AddUndo BeforeAddUndo', function(e) {
+				console.log(e.type, e);
+			});*/
+		},
+
+		spellchecker_callback: function(method, data, success) {
+			if (method == "spellcheck") {
+				var words = data.match(this.getWordCharPattern());
+				var suggestions = {};
+
+				for (var i = 0; i < words.length; i++) {
+					suggestions[words[i]] = ["First", "second"];
+				}
+
+				success({words: suggestions, dictionary: true});
+			}
+
+			if (method == "addToDictionary") {
+				success();
+			}
+		}
+	});
+
+	if (!window.console) {
+		window.console = {
+			log: function() {
+				tinymce.$('<div></div>').text(tinymce.grep(arguments).join(' ')).appendTo(document.body);
+			}
+		};
+	}
+</script>
+
+<!-- datepicker -->
+<!-- css -->
+<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/jquery-ui.css');?>">
+
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="<?php echo site_url('Alumni');?>"><span>Aluminium</span></a>
+				<ul class="user-menu">
+					<li class="dropdown pull-right">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> <?php echo $nama; ?> <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="<?php echo site_url('Alumni/profile_alumni');?>"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Profile</a></li>
+							<li><a href="<?php echo site_url('Alumni/logout');?>"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg> Logout</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /.container-fluid -->
+	</nav>
+
+	<!-- sidebar -->
+	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+		<ul class="nav menu">
+			<li><a href="<?php echo site_url('Alumni');?>"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
+			<li><a href="<?php echo site_url('TracerStudy');?>"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg> Tracer Study</a></li>
+			<li><a href="<?php echo site_url('Alumni/PersebaranAlumni');?>"><svg class="glyph stroked map"><use xlink:href="#stroked-map"></use></svg> Pencarian Alumni</a></li>
+			<li class="active"><a href="<?php echo site_url('Karir');?>"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> Informasi Karir</a></li>
+			<li><a href="<?php echo site_url('Alumni/Stakeholder');?>"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"></use></svg> Stakeholders</a></li>
+		</ul>
+		<!-- <div class="attribution">Template by <a href="http://www.medialoot.com/item/lumino-admin-bootstrap-template/">Medialoot</a><br/><a href="http://www.glyphs.co" style="color: #333;">Icons by Glyphs</a></div> -->
+	</div>
+	<!--/.sidebar-->
+
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Informasi Karir (Tambah)</h1>
+				<h5 style=""><?php echo anchor('Karir', 'Informasi Karir');?> / <?php echo anchor('Karir/kelola_karir', 'Kelola Informasi Karir');?> / Tambah Informasi Karir</h5>
+			</div>
+		</div><!--/.row-->
+
+		<!-- row  -->
+		<div class="row">
+			<div class="col-lg-12">
+
+        <?php echo form_open_multipart('Karir/tambah_karir'); ?>
+        <div class="form-group">
+					<?php
+						$idAlumni = array ('name'=>'idAlumni', 'class'=>'form-control input-sm', 'placeholder'=>'', 'value'=>$id_alumni, 'type'=>'hidden');
+						echo form_input($idAlumni);
+					?>
+					<br>
+					<?php
+            echo form_label('Nama Perusahaan / Instansi', 'namaPerusahaan');
+            $namaPerusahaan = array('name' => 'namaPerusahaan', 'class'=>'form-control input-sm', 'placeholder'=>'Masukkan Nama Perusahaan / Instansi');
+            echo form_input($namaPerusahaan);
+            echo form_error('namaPerusahaan');
+          ?>
+          <br>
+					<?php
+            echo form_label('Posisi yang dibutuhkan', 'posisi');
+            $posisi = array('name' => 'posisi', 'class' => 'form-control input-sm', 'placeholder' => 'Masukkan Posisi yang dibutuhkan');
+            echo form_input($posisi);
+            echo form_error('posisi');
+          ?>
+          <br>
+          <?php
+            echo form_label('Syarat atau Kriteria', 'kriteria');
+            $kriteria = array('name' => 'kriteria', 'class' => 'form-control input-sm', 'placeholder' => 'Masukkan Syarat atau Kriteria');
+            echo form_textarea($kriteria);
+            echo form_error('kriteria');
+          ?>
+          <br>
+					<?php
+            echo form_label('Batas Waktu', 'batasWaktu');
+            $batasWaktu = array('id' => 'tanggalBatasWaktu', 'data-toggle' => 'tooltip', 'data-placement' => 'right', 'data-container' => 'body', 'title' => 'Contoh : 2017-01-02, format : yyyy-mm-dd.', 'name' => 'batasWaktu', 'class' => 'form-control input-sm', 'placeholder' => 'Masukkan tanggal batas waktu, contoh : 2017-01-02, Format : yyyy-mm-dd');
+            echo form_input($batasWaktu);
+					  echo form_error('batasWaktu');
+          ?>
+          <br>
+          <?php
+            echo form_label('Kontak', 'kontak');
+            $kontak = array('name' => 'kontak', 'class' => 'form-control input-sm', 'placeholder' => 'Kontak yang dapat dihubungi');
+            echo form_input($kontak);
+            echo form_error('kontak');
+          ?>
+					<br>
+					<?php
+            echo form_label('Gambar', 'gambar');
+            echo form_upload('upGambar');
+          ?>
+          <br>
+          <?php
+            $submit = array('type' => 'submit', 'name' => 'simpan', 'class' => 'btn btn-primary btn-sm');
+            echo form_submit($submit, 'Simpan');
+            echo form_close();
+          ?>
+        </div>
+			</div>
+		</div>
+		<!-- row  -->
+	</div>	<!--/.main-->
+
+	<script src="<?php echo base_url('assets/js/jquery-1.11.1.min.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/bootstrap.min.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/chart.min.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/chart-data.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/easypiechart.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/easypiechart-data.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/bootstrap-datepicker.js');?>"></script>
+
+	<!-- jquery-ui -->
+	<script src="<?php echo base_url('assets/js/jquery-ui.js');?>"></script>
+	<!-- datepicker -->
+	<script type="text/javascript">
+		$(function() {
+			$("#tanggalBatasWaktu").datepicker({
+				dateFormat: 'yy-mm-dd'
+			}).val();
+		});
+	</script>
+</body>
+
+</html>

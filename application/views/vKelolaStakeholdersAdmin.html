@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aluminium - Admin</title>
+
+<link href="<?php echo base_url('assets/css/bootstrap.min.css');?>" rel="stylesheet">
+<link href="<?php echo base_url('assets/css/datepicker3.css');?>" rel="stylesheet">
+<link href="<?php echo base_url('assets/css/styles.css');?>" rel="stylesheet">
+
+<!--Icons-->
+<script src="<?php echo base_url('assets/js/lumino.glyphs.js');?>"></script>
+
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]-->
+
+</head>
+
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="<?php echo site_url('Admin');?>"><span>Aluminium</span></a>
+				<ul class="user-menu">
+					<li class="dropdown pull-right">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>Admin <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="<?php echo site_url('Admin/profilAdmin')?>"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Profile</a></li>
+							<li><a href="<?php echo site_url('Alumni/logout');?>"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg> Logout</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+	<!-- navbar -->
+
+	<!-- sidebar -->
+	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+		<ul class="nav menu">
+			<li><a href="<?php echo site_url('Admin');?>"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
+			<li><a href="<?php echo site_url('Admin/alumni');?>"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Kelola Data Alumni</a></li>
+			<li><a href="<?php echo site_url('Agenda');?>"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg> Kelola Agenda</a></li>
+			<li><a href="<?php echo site_url('Admin/KelolaKarir');?>"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> Kelola Karir</a></li>
+			<li><a href="<?php echo site_url('Admin/KelolaTracerStudy');?>"><svg class="glyph stroked app-window-with-content"><use xlink:href="#stroked-app-window-with-content"></use></svg> Kelola Tracer Study</a></li>
+			<li class="active"><a href="<?php echo site_url('Stakeholders');?>"><svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"></use></svg> Kelola Stakeholders</a></li>
+			<li><a href="<?php echo site_url('Admin/laporan');?>"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"></use></svg> Laporan</a></li>
+		</ul>
+		<!-- <div class="attribution">Template by <a href="http://www.medialoot.com/item/lumino-admin-bootstrap-template/">Medialoot</a><br/><a href="http://www.glyphs.co" style="color: #333;">Icons by Glyphs</a></div> -->
+	</div>
+	<!--/.sidebar-->
+
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Kelola Data Stakeholders</h1>
+			</div>
+		</div>
+    <!--/.row-->
+
+		<div class="row">
+      <div class="col-lg-12 table-responsive">
+        <table class="table">
+        	<tr style="font-weight:bold; text-align:center;">
+        		<td>No.</td>
+						<td>Nama Pengisi</td>
+						<td>Nama Perusahaan</td>
+						<td>Jabatan</td>
+						<td>Nama Alumni</td>
+						<td>Tanggal Pengisian</td>
+						<td>Aksi</td>
+        	</tr>
+					<?php
+						$no = $page+1;
+						foreach($hasil->result() as $row):
+					?>
+					<tr style="text-align:center;">
+						<td><?php echo $no;?></td>
+						<td><?php echo $row->nama;?></td>
+						<td><?php echo $row->perusahaan;?></td>
+						<td><?php echo $row->jabatan;?></td>
+						<td><?php echo $row->namaAlumni;?></td>
+						<td><?php echo $row->tanggalIsi;?></td>
+						<td>
+							<a href="<?php echo base_url('index.php/Stakeholders/tampilDetailTSS/'.$row->id_tss);?>" target="_blank">Detail</a>
+						</td>
+					</tr>
+					<?php
+						$no++;
+						endforeach;
+					?>
+        </table>
+				<?php
+					echo $paginator;
+				?>
+      </div>
+    </div>
+		<!-- row -->
+  </div>
+  <!-- main -->
+	<script src="<?php echo base_url('assets/js/jquery-1.11.1.min.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/bootstrap.min.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/chart.min.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/chart-data.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/easypiechart.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/easypiechart-data.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/bootstrap-datepicker.js');?>"></script>
+
+
+</body>
+
+</html>

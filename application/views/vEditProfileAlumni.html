@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aluminium - Edit Profil Alumni</title>
+
+<link href="<?php echo base_url('assets/css/bootstrap.min.css');?>" rel="stylesheet">
+<link href="<?php echo base_url('assets/css/datepicker3.css');?>" rel="stylesheet">
+<link href="<?php echo base_url('assets/css/styles.css');?>" rel="stylesheet">
+
+<!--Icons-->
+<script src="<?php echo base_url('assets/js/lumino.glyphs.js');?>"></script>
+
+<!-- datepicker -->
+<!-- css -->
+<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/jquery-ui.css');?>">
+
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]-->
+
+</head>
+
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><span>Aluminium </span>Profil Alumni</a>
+				<ul class="user-menu">
+					<li class="dropdown pull-right">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> <?php echo $nama;?> <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Profile</a></li>
+							<li><a href="<?php echo site_url('Alumni/logout');?>"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg> Logout</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+	<!-- navbar -->
+
+	<!-- sidebar -->
+	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+		<ul class="nav menu">
+			<li><a href="<?php echo site_url('Alumni');?>"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
+			<li><a href="<?php echo site_url('TracerStudy');?>"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg> Tracer Study</a></li>
+			<li><a href="<?php echo site_url('Alumni/PersebaranAlumni');?>"><svg class="glyph stroked map"><use xlink:href="#stroked-map"></use></svg> Pencarian Alumni</a></li>
+			<li><a href="<?php echo site_url('Karir');?>"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> Informasi Karir</a></li>
+			<li><a href="<?php echo site_url('Alumni/Stakeholder');?>"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"></use></svg> Stakeholders</a></li>
+		</ul>
+		<div class="attribution">Template by <a href="http://www.medialoot.com/item/lumino-admin-bootstrap-template/">Medialoot</a><br/><a href="http://www.glyphs.co" style="color: #333;">Icons by Glyphs</a></div>
+	</div>
+	<!--/.sidebar-->
+
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Edit Profil Alumni</h1>
+			</div>
+		</div><!--/.row-->
+    <div class="form-group col-lg-12">
+        <?php
+          foreach($data_edit as $row):
+          echo form_open_multipart('Alumni/edit_profile_alumni/'.$row->id_alumni);
+          endforeach;
+        ?>
+
+        <!-- username -->
+  			<!-- <div class="row">
+  					<div class="col-lg-12">
+  						<?php
+  							echo form_label('Username', 'username');
+  							$username = array('name'=>'username', 'class'=>'form-control input-sm', 'placeholder'=>'Masukan Username', 'value'=>$row->username);
+  							echo form_input($username);
+  							echo form_error('username');
+  						?>
+  					</div>
+  			</div>
+				<br> -->
+
+				<!-- nama -->
+  			<div class="row">
+  				<div class="col-lg-12">
+  					<?php
+  						echo form_label('Nama Lengkap', 'namaLengkap');
+              $namaLengkap = array('name'=>'namaLengkap', 'class'=>'form-control input-sm', 'placeholder'=>'Tuliskan Nama Lengkap', 'value'=>$row->nama);
+              echo form_input($namaLengkap);
+              echo form_error('namaLengkap');
+  					?>
+  				</div><!--/. col -->
+  			</div><!--/. row-->
+				<br>
+
+  			<!-- password -->
+  			<div class="row">
+  				<div class="col-lg-12">
+  					<?php
+  						echo form_label('Password', 'password');
+  						$password = array('name'=>'password', 'class'=>'form-control input-sm', 'placeholder'=>'Masukkan Password', 'value'=>'');
+  						echo form_input($password);
+  						echo form_error('password');
+  					?>
+  				</div><!--/.col-->
+  			</div><!--/.row-->
+				<br>
+
+        <!-- alamat asal -->
+  			<div class="row">
+  				<div class="col-lg-12">
+  					<?php
+  						echo form_label('Alamat Asal', 'alamatAsal');
+  						$alamatAsal = array('name'=>'alamatAsal', 'class'=>'form-control input-sm', 'placeholder'=>'Masukkan Alamat Asal', 'value'=>$row->alamat_asal);
+  						echo form_input($alamatAsal);
+  						echo form_error('alamatAsal');
+  					?>
+  				</div><!--/.col-->
+  			</div><!--/.row-->
+				<br>
+
+				<!-- jenis kelamin -->
+				<div class="row">
+					<div class="col-lg-12">
+						<?php
+							echo form_label('Jenis Kelamin', 'jenisKelamin');?>
+							<br>
+							<?php
+							$jenisKelamin = array(''=>'----', '1' => 'Laki - Laki', '2' => 'Perempuan');
+							$ddName = 'jenisKelamin';
+							$dataJk = $row->jenisKelamin;
+							echo form_dropdown($ddName, $jenisKelamin, $dataJk);
+							echo form_error('jenisKelamin');
+						?>
+					</div><!--/. col -->
+				</div><!--/. row-->
+				<br>
+
+				<!-- tanggal lahir -->
+  			<div class="row">
+  				<div class="col-lg-12">
+  					<?php
+  						echo form_label('Tanggal Lahir ( Format : yyyy-mm-dd Contoh : 1992-07-20)', 'tanggalLahir');
+  						$tanggalLahir = array('id' => 'tanggalLahir', 'name'=>'tanggalLahir', 'class'=>'form-control input-sm', 'placeholder'=>'Masukkan Tanggal Lahir Alumni', 'value'=>$row->tanggalLahir);
+  						echo form_input($tanggalLahir);
+  						echo form_error('tanggalLahir');
+  					?>
+  				</div><!--/.col-->
+  			</div><!--/.row-->
+				<br>
+
+        <!-- email -->
+  			<div class="row">
+  				<div class="col-lg-12">
+  					<?php
+  						echo form_label('Email (Contoh : aluminium@xyz.com)', 'email');
+  						$email = array('name'=>'email', 'type'=>'email', 'class'=>'form-control input-sm', 'placeholder'=>'Masukkan Email Alumni', 'value'=>$row->email);
+  						echo form_input($email);
+  						echo form_error('email');
+  					?>
+  				</div><!--/.col-->
+  			</div><!--/.row-->
+				<br>
+
+        <!-- facebook -->
+  			<div class="row">
+  				<div class="col-lg-12">
+  					<?php
+  						echo form_label('Facebook (Copy Link Profil Fb Anda Contoh : https://www.facebook.com/andy.hartanto.9)', 'facebook');
+  						$facebook = array('name'=>'facebook', 'class'=>'form-control input-sm', 'placeholder'=>'Masukkan Facebook Alumni', 'value'=>$row->facebook);
+  						echo form_input($facebook);
+  						echo form_error('facebook');
+  					?>
+  				</div><!--/.col-->
+  			</div><!--/.row-->
+				<br>
+
+        <!-- twitter -->
+  			<div class="row">
+  				<div class="col-lg-12">
+  					<?php
+  						echo form_label('Twitter (Contoh : andyvigor - Tanpa "@")', 'twitter');
+  						$twitter = array('name'=>'twitter', 'class'=>'form-control input-sm', 'placeholder'=>'Masukkan Nama Twitter @Alumni', 'value'=>$row->twitter);
+  						echo form_input($twitter);
+  						echo form_error('twitter');
+  					?>
+  				</div><!--/.col-->
+  			</div><!--/.row-->
+				<br>
+
+        <!-- instagram -->
+  			<div class="row">
+  				<div class="col-lg-12">
+  					<?php
+  						echo form_label('Instagram (Contoh : andyhartanto11 - Tanpa "@")', 'instagram');
+  						$instagram = array('name'=>'instagram', 'class'=>'form-control input-sm', 'placeholder'=>'Masukkan Nama Instagram @alumni', 'value'=>$row->instagram);
+  						echo form_input($instagram);
+  						echo form_error('instagram');
+  					?>
+  				</div><!--/.col-->
+  			</div><!--/.row-->
+				<br>
+
+      <!-- tombol submit -->
+      <div class="row">
+        <div class="col-lg-12">
+          <?php
+            $btn = array('type'=>'submit', 'name'=>'simpan', 'class'=>'btn btn-primary btn-sm');
+            echo form_submit($btn,'Ubah');
+          ?>
+        </div><!--/.col-->
+      </div><!--/.row-->
+    </div><!--/.form-group-->
+
+
+	</div>	<!--/.main-->
+
+	<script src="<?php echo base_url('assets/js/jquery-1.11.1.min.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/bootstrap.min.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/chart.min.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/chart-data.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/easypiechart.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/easypiechart-data.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/bootstrap-datepicker.js');?>"></script>
+
+	<!-- jquery-ui -->
+	<script src="<?php echo base_url('assets/js/jquery-ui.js');?>"></script>
+	<!-- datepicker -->
+	<script type="text/javascript">
+		$(function() {
+			$("#tanggalLahir").datepicker({
+				dateFormat: 'yy-mm-dd'
+			}).val();
+		});
+	</script>
+</body>
+
+</html>

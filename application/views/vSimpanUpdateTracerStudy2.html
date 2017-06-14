@@ -1,0 +1,1885 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Aluminium - Tracer Study</title>
+
+	<!--bootstrap,datepicker3,style-css-->
+	<link href="<?php echo base_url('assets/css/bootstrap.min.css');?>" rel="stylesheet">
+	<link href="<?php echo base_url('assets/css/datepicker3.css');?>" rel="stylesheet">
+	<link href="<?php echo base_url('assets/css/styles.css');?>" rel="stylesheet">
+
+	<!-- css popup -->
+	<link href="<?php echo base_url('assets/css/popup.css');?>" rel="stylesheet">
+
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.js"></script>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+	<style media="screen">
+		#pinggir{
+			text-align: left;
+		}
+	</style>
+
+</head>
+
+<body >
+
+	<!-- halaman tracer study / main container tracer study -->
+	<div class="col-sm-5 col-sm-offset-1 col-lg-10 col-lg-offset-1 main">
+
+		<!-- isi konten form tracer study -->
+		<div class="row">
+			<div class="col-lg-12">
+
+				<!-- panel form tracer study -->
+				<div class="panel panel-default">
+
+					<div class="panel-heading">
+						<h2>Form Tracer Study Alumni</h2>
+					</div>
+
+					<div class="panel-heading">
+						Nama : <?php echo $nama."\n\n";?>
+						file_exists : <?php echo $file_exists;?>
+
+					</div>
+					<!-- panel body form tracer study -->
+										<div class="panel-body">
+											<!-- <form class="multiphaseForm" id="multiphaseForm" onsubmit="return false" method="post" action="<?php base_url();?>TracerStudy/masuk_data_ts"> -->
+
+												<!--fieldset pertama-->
+												<!-- <fieldset class="fieldset1" id="fieldset1"> -->
+													<!-- f3 -->
+													<!-- <div class="form-group"> -->
+														<div class="row">
+															<div class="col-md-8">
+																<label>1. Kapan anda mulai mencari pekerjaan ?</label>
+															</div>
+														</div>
+														<div class="row ">
+															<div class="col-md-8">
+																<?php
+																	if($f3 == 1 || $f3 == '1'){
+																		echo '<output name="result">Sebelum Lulus</output>';
+																	}else if($f3 == 2 || $f3 == '2'){
+																		echo '<output name="result">Sesudah Lulus</output>';
+																	}else{
+																		echo '<output name="result">Tidak Mencari Kerja</output>';
+																	}
+																?>
+															</div>
+													</div>
+													<br>
+												<!-- </div>	 -->
+												<!-- </fieldset><!--fieldset1-->
+
+												<!--fieldset ke dua untuk form-->
+												<!-- <fieldset class="fieldset2" id="fieldset2"> -->
+													<!-- f4 -->
+													<!-- <div class="form-group"> -->
+														<div class="row">
+															<div class="col-md-8 ">
+																<label>2. Bagaimana anda mencari pekerjaan tersebut?</label>
+															</div>
+														</div>
+														<div class="row" >
+															<div class="col-md-8">
+																<?php
+																	if($f4 == 1 || $f4 == '1'){
+																		echo '<output name="result">Melalui iklan di koran / majalah, brosur</output>';
+																	}else if($f4 == 2 || $f4 == '2'){
+																		echo '<output name="result">Melamar ke perusahaan tanpa mengetahui lowongan yang ada</output>';
+																	}else if($f4 == 3 || $f4 == '3'){
+																		echo '<output name="result">Pergi ke bursa / pameran kerja</output>';
+																	}else if($f4 == 4 || $f4 == '4'){
+																		echo '<output name="result">Mencari lewat internet / iklan online / milis</output>';
+																	}else if($f4 == 5 || $f4 == '5'){
+																		echo '<output name="result">Dihubungi oleh perusahaan</output>';
+																	}else if($f4 == 6 || $f4 == '6'){
+																		echo '<output name="result">Menguhubungi Kementrian Tenaga Kerja dan Transmigrasi</output>';
+																	}else if($f4 == 7 || $f4 == '7'){
+																		echo '<output name="result">Menghubungi agen tenaga kerja komersial / swasta</output>';
+																	}else if($f4 == 8 || $f4 == '8'){
+																		echo '<output name="result">Memeroleh informasi dari pusat / kantor pengembangan karir fakultas / universitas</output>';
+																	}else if($f4 == 9 || $f4 == '9'){
+																		echo '<output name="result">Menghubungi kantor kemahasiswaan / hubungan alumni</output>';
+																	}else if($f4 == 10 || $f4 == '10'){
+																		echo '<output name="result">Membangun jejaring (network) sejak masih kuliah</output>';
+																	}else if($f4 == 11 || $f4 == '11'){
+																		echo '<output name="result">Melalui relasi (misalnya dosen, orang tua, saudara, teman, dll)</output>';
+																	}else if($f4 == 12 || $f4 == '12'){
+																		echo '<output name="result">Membangun bisnis sendiri</output>';
+																	}else if($f4 == 13 || $f4 == '13'){
+																		echo '<output name="result">Melalui penempatan kerja atau magang</output>';
+																	}else if($f4 == 14 || $f4 == '14'){
+																		echo '<output name="result">Bekerja di tempat yang sama dengan tempat kerja semasa kuliah</output>';
+																	}else{
+																		echo '<output name="result">Lain - Lain</output>';
+																	}
+																?>
+															</div>
+													</div><!-- f4 -->
+													<br>
+
+													<!-- f5 -->
+													<!-- <div class="form-group"> -->
+														<div class="row">
+															<div class="col-md-12">
+																<label>3. Berapa bulan waktu yang dihabiskan (sebelum dan sesudah kelulusan) untuk memeroleh pekerjaan pertama?</label>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-6">
+																<output name="result"><?php echo $f5;?> Bulan.</output>
+															</div>
+														</div>
+														<br>
+													<!-- </div> -->
+													<!-- f5 -->
+
+													<!-- f6 -->
+													<!-- <div class="form-group"> -->
+														<div class="row">
+															<div class="col-md-12">
+																<label>4. Berapa perusahaan / instansi / institusi yang sudah anda lamar (lewat surat atau email) ?</label>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-6">
+																<output name="result"><?php echo $f6;?> Perusahaan.</output>
+															</div>
+														</div>
+														<br>
+													<!-- </div> -->
+													<!-- f6 -->
+
+													<!-- f7 -->
+													<!-- <div class="form-group"> -->
+														<div class="row">
+															<div class="col-md-12">
+																<label>5. Berapa banyak perusahaan / instansi / institusi yang merespon lamaran anda?</label>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-6">
+																<output name="result"><?php echo $f7;?> Perusahaan.</output>
+															</div>
+														</div>
+														<br>
+													<!-- </div> -->
+													<!-- f7 -->
+
+													<!-- f7a -->
+													<!-- <div class="form-group"> -->
+														<div class="row">
+															<div class="col-md-12">
+																<label>6. Berapa banayk perusahaan / instansi / institusi yang mengundang anda untuk wawancara?</label>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-6">
+																<output name="result"><?php echo $f7a;?> Perusahaan.</output>
+															</div>
+														</div>
+														<br>
+													<!-- </div> -->
+													<!-- f7a -->
+													<!-- <button onclick="backProsesFieldset2()">Kembali</button>
+													<button onclick="prosesFieldset2()">Selanjutnya</button> -->
+												<!-- </fieldset> -->
+												<!--fieldset2-->
+
+												<!-- fieldset3 -->
+												<!-- <fieldset class="fieldset3" id="fieldset3"> -->
+													<!-- f8 -->
+													<!-- <div class="form-group"> -->
+														<div class="row">
+															<div class="col-md-12">
+																<label>7. Apakah anda bekerja saat ini (termasuk kerja sambilan dan wirausaha)?</label>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-12">
+																<?php
+																	if($f8 == 1 || $f8 == '1'){
+																		echo '<output name="result">Iya</output>';
+																	}else{
+																		echo '<output name="result">Tidak</output>';
+																	}
+																?>
+															</div>
+														</div>
+														<br>
+													<!-- </div> -->
+													<!-- f8 -->
+													<!-- <button onclick="backProsesFieldset3()">Kembali</button>
+													<button onclick="prosesFieldset3()">Selanjutnya</button> -->
+												<!-- </fieldset> -->
+												<!-- fieldset3 -->
+
+												<!-- fieldset5 -->
+												<!-- <fieldset class="fieldset5" id="fieldset5"> -->
+													<!-- f9 -->
+													<!-- <div class="form-group"> -->
+														<div class="row">
+															<div class="col-lg-12">
+																<label for="">8. Bagaimana anda menggambarkan situasi anda saat ini?</label>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-12">
+																<?php
+																	if($f9 == 1 || $f9 == '1'){
+																		echo '<output name="result">Saya masih belajar / melakukan kuliah profesi atau pascasarjana.</output>';
+																	}else if($f9 == 2 || $f9 == '2'){
+																		echo '<output name="result">Saya menikah.</output>';
+																	}else if($f9 == 3 || $f9 == '3'){
+																		echo '<output name="result">Saya sibuk dengan keluarga dan anak-anak.</output>';
+																	}else if($f9 == 4 || $f9 == '4'){
+																		echo '<output name="result">Saya sekarang sedang mencari pekerjaan.</output>';
+																	}else if($f9 == 5 || $f9 == '5'){
+																		echo '<output name="result">Lainnya.</output>';
+																	}else{
+																		echo '<output name="result">Belum diisi / kosong.</output>';
+																	}
+																?>
+															</div>
+														</div>
+														<br>
+													<!-- </div>  -->
+													<!-- f9 -->
+
+													<!-- f10 -->
+													<!-- <div class="form-group"> -->
+														<div class="row">
+															<div class="col-md-12">
+																<label for="">9. Apakah anda aktif mencari pekerjaan dalam 4 minggu terakhir?</label>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-12">
+																<?php
+																	if($f10 == 1 || $f10 == '1'){
+																		echo '<output name="result">Tidak.</output>';
+																	}else if($f10 == 2 || $f10 == '2'){
+																		echo '<output name="result">Tidak, tapi saya sedang menunggu hasil lamaran kerja.</output>';
+																	}else if($f10 == 3 || $f10 == '3'){
+																		echo '<output name="result">Ya, saya mulai akan mulai bekerja dalam 2 minggu ke depan.</output>';
+																	}else if($f10 == 4 || $f10 == '4'){
+																		echo '<output name="result">Ya, tapi saya belum pasti akan bekerja dalam 2 minggu ke depan.</output>';
+																	}else if($f10 == 5 || $f10 == '5'){
+																		echo '<output name="result">Lainnya.</output>';
+																	}else{
+																		echo '<output name="result">Belum diisi / kosong.</output>';
+																	}
+																?>
+															</div>
+														</div>
+														<br>
+													<!-- </div> -->
+													<!-- f10 -->
+													<!-- <button onclick="backProsesFieldset5()">Kembali</button>
+													<button onclick="prosesFieldset5()">Selanjutnya</button> -->
+												<!-- </fieldset> -->
+												<!--fieldset5-->
+
+												<!--fieldset4-->
+												<!-- <fieldset class="fieldset4" id="fieldset4"> -->
+													<!-- f11 -->
+													<!-- <div class="form-group"> -->
+														<div class="row">
+															<div class="col-md-12">
+																<label>10. Apa jenis perusahaan / instansi / institusi tempat anda bekerja sekarang?</label>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-8">
+																<?php
+																	if($f11 == 1 || $f11 == '1'){
+																		echo '<output name="result">Instansi pemerintah (termasuk BUMN).</output>';
+																	}else if($f11 == 2 || $f11 == '2'){
+																		echo '<output name="result">Organisasi non-profit / lembaga swadaya masyarakat.</output>';
+																	}else if($f11 == 3 || $f11 == '3'){
+																		echo '<output name="result">Perusahaan swasta.</output>';
+																	}else if($f11 == 4 || $f11 == '4'){
+																		echo '<output name="result">Wiraswasta.</output>';
+																	}else{
+																		echo '<output name="result">Lainnya.</output>';
+																	}
+																?>
+															</div>
+														</div>
+														<br>
+													<!-- </div> -->
+													<!-- f11 -->
+
+													<!-- f12 -->
+													<div class="form-group">
+														<div class="row">
+															<div class="col-md-12">
+																<label>11. Tempat anda bekerja saat ini bergerak di bidang apa?</label>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-8">
+																<?php
+																	if($f12 == 1 || $f12 == '1'){
+																		echo '<output name="result">Pengembang perangkat lunak.</output>';
+																	}else if($f12 == 2 || $f12 == '2'){
+																		echo '<output name="result">Jaringan komputer.</output>';
+																	}else if($f13 == 3 || $f13 == '3'){
+																		echo '<output name="result">Desain grafis dan animasi.</output>';
+																	}else{
+																		echo '<output name="result">Lainnya.</output>';
+																	}
+																?>
+															</div>
+														</div>
+														<br>
+													<!-- </div> -->
+													<!-- f12 -->
+
+													<!-- f13 -->
+													<!-- <div class="form-group"> -->
+														<div class="row">
+															<div class="col-md-12">
+																<label>12. Berapa pendapatan anda, rata - rata tiap bulannya?</label>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-12">
+																<?php
+																	if($f13 == 1 || $f13 == '1'){
+																		echo '<output name="result">0 - Rp 1.999.999,-</output>';
+																	}else if($f13 == 2 || $f13 == '2'){
+																		echo '<output name="result">Rp 2.000.000,- - Rp 2.999.999,-</output>';
+																	}else if($f13 == 3 || $f13 == '3'){
+																		echo '<output name="result">Rp 3.000.000,- - Rp 3.999.999,-</output>';
+																	}else if($f13 == 4 || $f13 == '4'){
+																		echo '<output name="result">Lebih dari Rp 4.000.000,-</output>';
+																	}else{
+																		echo '<output name="result">Belum diisi / kosong.</output>';
+																	}
+																?>
+															</div>
+														</div>
+														<br>
+													<!-- </div> -->
+													<!-- f13 -->
+
+													<!-- f14 -->
+													<!-- <div class="form-group"> -->
+														<div class="row">
+															<div class="col-md-12">
+																<label>13. Seberapa erat hubungan antara bidang studi dengan pekerjaan anda?</label>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-12">
+																<?php
+																	if($f14 == 1 || $f14 == '1'){
+																		echo '<output name="result">Sangat erat.</output>';
+																	}else if($f14 == 2 || $f14 == '2'){
+																		echo '<output name="result">Erat.</output>';
+																	}else if($f14 == 3 || $f14 == '3'){
+																		echo '<output name="result">Cukup erat.</output>';
+																	}else if($f14 == 4 || $f14 == '4'){
+																		echo '<output name="result">Kurang erat.</output>';
+																	}else if($f14 == 5 || $f14 == '5'){
+																		echo '<output name="result">Tidak sama sekali</output>';
+																	}else{
+																		echo '<output name="result">Belum diisi / kosong.</output>';
+																	}
+																?>
+															</div>
+														</div>
+														<br>
+													<!-- </div> -->
+													<!-- f14 -->
+
+													<!-- f15 -->
+													<!-- <div class="form-group"> -->
+														<div class="row">
+															<div class="col-md-12">
+																<label>14. Tingkat pendidikan apa yang paling tepat / sesuai untuk pekerjaan anda saat ini?</label>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-12">
+																<?php
+																	if($f15 == 1 || $f15 == '1'){
+																		echo '<output name="result">Setingkat lebih tinggi.</output>';
+																	}else if($f15 == 2 || $f15 == '2'){
+																		echo '<output name="result">Tingkat yang sama.</output>';
+																	}else if($f15 == 3 || $f15 == '3'){
+																		echo '<output name="result">Setingkat lebih rendah.</output>';
+																	}else if($f15 == 4 || $f15 == '4'){
+																		echo '<output name="result">Tidak perlu pendidikan tinggi.</output>';
+																	}else{
+																		echo '<output name="result">Belum diisi / kosong.</output>';
+																	}
+																?>
+															</div>
+														</div>
+														<br>
+													<!-- </div> -->
+													<!-- f15 -->
+
+													<!-- f16 -->
+													<!-- <div class="form-group"> -->
+														<div class="row">
+																<div class="col-md-12">
+																<label>15. Jika menurut anda pekerjaan anda saat ini tidak sesuai dengan pendidikan anda, mengapa anda mengambilnya?</label>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-12">
+																<?php
+																	if($f16 == 1 || $f16 == '1'){
+																		echo '<output name="result">Pertanyaan tidak sesuai, pekerjaan saya sekarang sudah sesuai dengan pendidikan.</output>';
+																	}else if($f16 == 2 || $f16 == '2'){
+																		echo '<output name="result">Saya belum mendapatkan pekerjaan yang lebih sesuai.</output>';
+																	}else if($f16 == 3 || $f16 == '3'){
+																		echo '<output name="result">Di pekerjaan ini saya memeroleh prospek karir yang baik.</output>';
+																	}else if($f16 == 4 || $f16 == '4'){
+																		echo '<output name="result">Saya lebih suka bekerja di area pekerjaan yang tidak ada hubungannya dengan pendidikan saya.</output>';
+																	}else if($f16 == 5 || $f16 == '5'){
+																		echo '<output name="result">Saya dipromosikan ke posisi yang kurang berhubungan dengan pendidikan saya dibanding posisi sebelumnya.</output>';
+																	}else if($f16 == 6 || $f16 == '6'){
+																		echo '<output name="result">Saya dapat memeroleh pendapatan yang lebih tinggi di pekerjaan ini.</output>';
+																	}else if($f16 == 7 || $f16 == '7'){
+																		echo '<output name="result">Pekerjaan saya saat ini lebih aman / terjamin / secure.</output>';
+																	}else if($f16 == 8 || $f16 == '8'){
+																		echo '<output name="result">Pekerjaan saya saat ini lebih menarik.</output>';
+																	}else if($f16 == 9 || $f16 == '9'){
+																		echo '<output name="result">Pekerjaan saya saat ini lebih memungkinkan saya mengambil pekerjaan tambahan / jadwal yang fleksibel.</output>';
+																	}else if($f16 == 10 || $f16 == '10'){
+																		echo '<output name="result">Pekerjaan saya saat ini lokasinya lebih dekat dari rumah saya.</output>';
+																	}else if($f16 == 11 || $f16 == '11'){
+																		echo '<output name="result">Pekerjaan saya saat ini dapat lebih menjamin kebutuhan keluarga saya.</output>';
+																	}else if($f16 == 12 || $f16 == '12'){
+																		echo '<output name="result">Pada awal meniti karir ini, saya harus menerima pekerjaan yang tidak berhubungan dengan pendidikan saya.</output>';
+																	}else if($f16 == 13 || $f16 == '13'){
+																		echo '<output name="result">Lainnya.</output>';
+																	}else{
+																		echo '<output name="result">Belum diisi / kosong.</output>';
+																	}
+																?>
+															</div>
+														</div>
+														<br>
+													<!-- </div> -->
+													<!-- f16 -->
+													<!-- <button onclick="backProsesFieldset4()">Kembali</button>
+													<button onclick="prosesFieldset4()">Selanjutnya</button> -->
+												<!-- </fieldset> -->
+												<!--fieldset4-->
+
+
+												<!-- fieldset6a-->
+												<!-- <fieldset class="fieldset6a" id="fieldset6a"> -->
+													<!-- f17a1 -->
+													<!-- <form method="post" action="#"> -->
+														<table class="table" border="2">
+															<tr>
+																<td colspan="7"><b>Evaluasi Penilaian : Kompetensi yang Anda Kuasai (Alumni) (1/2)</b></td>
+															</tr>
+															<tr align="center">
+																<td><b>No.<b></td>
+																<td><b>Kompetensi</b></td>
+																<td><b>Keterangan</b></td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-1 -->
+																<td>1.</td>
+																<td id="pinggir">Pengetahuan di bidang / disiplin ilmu anda</td>
+																<td>
+																	<?php
+																		if($f17a1 == 1 || $f17a1 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a1 == 2 || $f17a1 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a1 == 3 || $f17a1 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a1 == 4 || $f17a1 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a1 == 5 || $f17a1 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-2 -->
+																<td>2.</td>
+																<td id="pinggir">Pengetahuan di luar bidang / disiplin ilmu anda</td>
+																<td>
+																	<?php
+																		if($f17a2 == 1 || $f17a2 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a2 == 2 || $f17a2 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a2 == 3 || $f17a2 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a2 == 4 || $f17a2 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a2 == 5 || $f17a2 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-3 -->
+																<td>3.</td>
+																<td id="pinggir">Pengetahuan umum</td>
+																<td>
+																	<?php
+																		if($f17a3 == 1 || $f17a3 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a3 == 2 || $f17a3 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a3 == 3 || $f17a3 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a3 == 4 || $f17a3 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a3 == 5 || $f17a3 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-4 -->
+																<td>4.</td>
+																<td id="pinggir">Bahasa inggris</td>
+																<td>
+																	<?php
+																		if($f17a4 == 1 || $f17a4 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a4 == 2 || $f17a4 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a4 == 3 || $f17a4 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a4 == 4 || $f17a4 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a4 == 5 || $f17a4 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-5 -->
+																<td>5.</td>
+																<td id="pinggir">Keterampilan internet</td>
+																<td>
+																	<?php
+																		if($f17a5 == 1 || $f17a5 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a5 == 2 || $f17a5 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a5 == 3 || $f17a5 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a5 == 4 || $f17a5 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a5 == 5 || $f17a5 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-6 -->
+																<td>6.</td>
+																<td id="pinggir">Keterampilan komputer</td>
+																<td>
+																	<?php
+																		if($f17a6 == 1 || $f17a6 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a6 == 2 || $f17a6 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a6 == 3 || $f17a6 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a6 == 4 || $f17a6 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a6 == 5 || $f17a6 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-7 -->
+																<td>7.</td>
+																<td id="pinggir">Berpikir kritis</td>
+																<td>
+																	<?php
+																		if($f17a7 == 1 || $f17a7 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a7 == 2 || $f17a7 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a7 == 3 || $f17a7 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a7 == 4 || $f17a7 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a7 == 5 || $f17a7 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																	<!-- f17a-8 -->
+																<td>8.</td>
+																<td id="pinggir">Keterampilan riset</td>
+																<td>
+																	<?php
+																		if($f17a8 == 1 || $f17a8 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a8 == 2 || $f17a8 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a8 == 3 || $f17a8 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a8 == 4 || $f17a8 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a8 == 5 || $f17a8 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-9 -->
+																<td>9.</td>
+																<td id="pinggir">Kemampuan belajar</td>
+																<td>
+																	<?php
+																		if($f17a9 == 1 || $f17a9 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a9 == 2 || $f17a9 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a9 == 3 || $f17a9 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a9 == 4 || $f17a9 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a9 == 5 || $f17a9 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-10 -->
+																<td>10.</td>
+																<td id="pinggir">Kemampuan berkomunikasi</td>
+																<td>
+																	<?php
+																		if($f17a10 == 1 || $f17a10 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a10 == 2 || $f17a10 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a10 == 3 || $f17a10 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a10 == 4 || $f17a10 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a10 == 5 || $f17a10 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-11 -->
+																<td>11.</td>
+																<td id="pinggir">Bekerja di bawah tekanan</td>
+																<td>
+																	<?php
+																		if($f17a11 == 1 || $f17a11 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a11 == 2 || $f17a11 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a11 == 3 || $f17a11 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a11 == 4 || $f17a11 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a11 == 5 || $f17a11 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-12 -->
+																<td>12.</td>
+																<td id="pinggir">Manajemen waktu</td>
+																<td>
+																	<?php
+																		if($f17a12 == 1 || $f17a12 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a12 == 2 || $f17a12 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a12 == 3 || $f17a12 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a12 == 4 || $f17a12 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a12 == 5 || $f17a12 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-13 -->
+																<td>13.</td>
+																<td id="pinggir">Bekerja secara mandiri</td>
+																<td>
+																	<?php
+																		if($f17a13 == 1 || $f17a13 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a13 == 2 || $f17a13 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a13 == 3 || $f17a13 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a13 == 4 || $f17a13 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a13 == 5 || $f17a13 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-14 -->
+																<td>14.</td>
+																<td id="pinggir">Bekerja dalam tim / kerjasama dengan orang lain</td>
+																<td>
+																	<?php
+																		if($f17a14 == 1 || $f17a14 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a14 == 2 || $f17a14 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a14 == 3 || $f17a14 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a14 == 4 || $f17a14 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a14 == 5 || $f17a14 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-15 -->
+																<td>15.</td>
+																<td id="pinggir">Kemampuan memecahkan masalah</td>
+																<td>
+																	<?php
+																		if($f17a15 == 1 || $f17a15 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a15 == 2 || $f17a15 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a15 == 3 || $f17a15 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a15 == 4 || $f17a15 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a15 == 5 || $f17a15 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+														</table>
+														<!-- <button onclick="backProsesFieldset6a()">Kembali</button>
+														<button onclick="prosesFieldset6a()">Selanjutnya</button> -->
+														<!-- </form>f17a1-->
+												<!-- </fieldset> -->
+												<!--fieldset6a-->
+
+												<!-- fieldset6b -->
+												<!-- <fieldset class="fieldset6b" id="fieldset6b"> -->
+													<!-- f17a2-->
+													<!-- <form method="post" action="#"> -->
+														<table class="table" border="2">
+															<tr>
+																<td colspan="7"><b>Evaluasi Penilaian : Kompetensi yang Anda Kuasai (Alumni) (2/2)</b></td>
+															</tr>
+															<tr align="center" style="font-weight:bold">
+																<td>No.</td>
+																<td>Kompetensi</td>
+																<td>Keterangan</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-16 -->
+																<td>16.</td>
+																<td id="pinggir">Negosiasi</td>
+																<td>
+																	<?php
+																		if($f17a16 == 1 || $f17a16 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a16 == 2 || $f17a16 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a16 == 3 || $f17a16 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a16 == 4 || $f17a16 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a16 == 5 || $f17a16 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-17 -->
+																<td>17.</td>
+																<td id="pinggir">Kemampuan analisis</td>
+																<td>
+																	<?php
+																		if($f17a17 == 1 || $f17a17 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a17 == 2 || $f17a17 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a17 == 3 || $f17a17 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a17 == 4 || $f17a17 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a17 == 5 || $f17a17 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-18 -->
+																<td>18.</td>
+																<td id="pinggir">Toleransi</td>
+																<td>
+																	<?php
+																		if($f17a18 == 1 || $f17a18 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a18 == 2 || $f17a18 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a18 == 3 || $f17a18 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a18 == 4 || $f17a18 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a18 == 5 || $f17a18 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-19 -->
+																<td>19.</td>
+																<td id="pinggir">Kemampuan adaptasi</td>
+																<td>
+																	<?php
+																		if($f17a19 == 1 || $f17a19 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a19 == 2 || $f17a19 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a19 == 3 || $f17a19 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a19 == 4 || $f17a19 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a19 == 5 || $f17a19 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-20 -->
+																<td>20.</td>
+																<td id="pinggir">Loyalitas</td>
+																<td>
+																	<?php
+																		if($f17a20 == 1 || $f17a20 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a20 == 2 || $f17a20 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a20 == 3 || $f17a20 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a20 == 4 || $f17a20 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a20 == 5 || $f17a20 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-21 -->
+																<td>21.</td>
+																<td id="pinggir">Integritas</td>
+																<td>
+																	<?php
+																		if($f17a21 == 1 || $f17a21 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a21 == 2 || $f17a21 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a21 == 3 || $f17a21 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a21 == 4 || $f17a21 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a21 == 5 || $f17a21 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-22 -->
+																<td>22.</td>
+																<td id="pinggir">Bekerja dengan orang berbeda budaya maupun latar belakang</td>
+																<td>
+																	<?php
+																		if($f17a22 == 1 || $f17a22 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a22 == 2 || $f17a22 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a22 == 3 || $f17a22 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a22 == 4 || $f17a22 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a22 == 5 || $f17a22 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-23 -->
+																<td>23.</td>
+																<td id="pinggir">Kepemimpinan</td>
+																<td>
+																	<?php
+																		if($f17a23 == 1 || $f17a23 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a23 == 2 || $f17a23 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a23 == 3 || $f17a23 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a23 == 4 || $f17a23 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a23 == 5 || $f17a23 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-24 -->
+																<td>24.</td>
+																<td id="pinggir">Kemampuan dalam memegang tanggung jawab</td>
+																<td>
+																	<?php
+																		if($f17a24 == 1 || $f17a24 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a24 == 2 || $f17a24 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a24 == 3 || $f17a24 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a24 == 4 || $f17a24 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a24 == 5 || $f17a24 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-25 -->
+																<td>25.</td>
+																<td id="pinggir">Inisiatif</td>
+																<td>
+																	<?php
+																		if($f17a25 == 1 || $f17a25 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a25 == 2 || $f17a25 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a25 == 3 || $f17a25 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a25 == 4 || $f17a25 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a25 == 5 || $f17a25 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-26 -->
+																<td>26.</td>
+																<td id="pinggir">Manajemen proyek / program</td>
+																<td>
+																	<?php
+																		if($f17a26 == 1 || $f17a26 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a26 == 2 || $f17a26 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a26 == 3 || $f17a26 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a26 == 4 || $f17a26 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a26 == 5 || $f17a26 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-27 -->
+																<td>27.</td>
+																<td id="pinggir">Kemampuan memresentasikan ide / produk / laporan</td>
+																<td>
+																	<?php
+																		if($f17a27 == 1 || $f17a27 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a27 == 2 || $f17a27 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a27 == 3 || $f17a27 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a27 == 4 || $f17a27 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a27 == 5 || $f17a27 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-28 -->
+																<td>28.</td>
+																<td id="pinggir">Kemampuan dalam menulis laporan, memo, dan dokumen</td>
+																<td>
+																	<?php
+																		if($f17a28 == 1 || $f17a28 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a28 == 2 || $f17a28 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a28 == 3 || $f17a28 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a28 == 4 || $f17a28 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a28 == 5 || $f17a28 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17a-29 -->
+																<td>29.</td>
+																<td id="pinggir">Kemampuan untuk terus belajar sepanjang hayat</td>
+																<td>
+																	<?php
+																		if($f17a29 == 1 || $f17a29 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17a29 == 2 || $f17a29 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17a29 == 3 || $f17a29 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17a29 == 4 || $f17a29 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17a29 == 5 || $f17a29 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+														</table>
+														<!-- <button onclick="backProsesFieldset6b()">Kembali</button>
+														<button onclick="prosesFieldset6b()">Selanjutnya</button> -->
+													<!-- </form>f17a2 -->
+												<!-- </fieldset> -->
+												<!--fieldset6b-->
+
+												<!-- fieldset7a -->
+												<!-- <fieldset class="fieldset7a" id="fieldset7a"> -->
+													<!-- f17b1 -->
+													<!-- <form method="post" action="#"> -->
+														<table class="table" border="2">
+															<tr>
+																<td colspan="7"><b>Evaluasi Penilaian : Kontribusi Jurusan TIF UMM untuk pengembangan kemampuan Alumni (Prodi) (1/2)</b></td>
+															</tr>
+															<tr align="center" style="font-weight:bold">
+																<td>No.</td>
+																<td>Kompetensi</td>
+																<td>Keterangan</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-1 -->
+																<td>1.</td>
+																<td id="pinggir">Pengetahuan di bidang / disiplin ilmu anda</td>
+																<td>
+																	<?php
+																		if($f17b1 == 1 || $f17b1 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b1 == 2 || $f17b1 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b1 == 3 || $f17b1 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b1 == 4 || $f17b1 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b1 == 5 || $f17b1 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-2 -->
+																<td>2.</td>
+																<td id="pinggir">Pengetahuan di luar bidang / disiplin ilmu anda</td>
+																<td>
+																	<?php
+																		if($f17b2 == 1 || $f17b2 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b2 == 2 || $f17b2 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b2 == 3 || $f17b2 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b2 == 4 || $f17b2 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b2 == 5 || $f17b2 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-3 -->
+																<td>3.</td>
+																<td id="pinggir">Pengetahuan umum</td>
+																<td>
+																	<?php
+																		if($f17b3 == 1 || $f17b3 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b3 == 2 || $f17b3 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b3 == 3 || $f17b3 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b3 == 4 || $f17b3 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b3 == 5 || $f17b3 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-4 -->
+																<td>4.</td>
+																<td id="pinggir">Bahasa inggris</td>
+																<td>
+																	<?php
+																		if($f17b4 == 1 || $f17b4 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b4 == 2 || $f17b4 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b4 == 3 || $f17b4 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b4 == 4 || $f17b4 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b4 == 5 || $f17b4 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-5 -->
+																<td>5.</td>
+																<td id="pinggir">Keterampilan internet</td>
+																<td>
+																	<?php
+																		if($f17b5 == 1 || $f17b5 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b5 == 2 || $f17b5 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b5 == 3 || $f17b5 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b5 == 4 || $f17b5 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b5 == 5 || $f17b5 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-6 -->
+																<td>6.</td>
+																<td id="pinggir">Keterampilan komputer</td>
+																<td>
+																	<?php
+																		if($f17b6 == 1 || $f17b6 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b6 == 2 || $f17b6 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b6 == 3 || $f17b6 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b6 == 4 || $f17b6 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b6 == 5 || $f17b6 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-7 -->
+																<td>7.</td>
+																<td id="pinggir">Berpikir kritis</td>
+																<td>
+																	<?php
+																		if($f17b7 == 1 || $f17b7 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b7 == 2 || $f17b7 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b7 == 3 || $f17b7 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b7 == 4 || $f17b7 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b7 == 5 || $f17b7 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-8 -->
+																<td>8.</td>
+																<td id="pinggir">Keterampilan riset</td>
+																<td>
+																	<?php
+																		if($f17b8 == 1 || $f17b8 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b8 == 2 || $f17b8 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b8 == 3 || $f17b8 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b8 == 4 || $f17b8 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b8 == 5 || $f17b8 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-9 -->
+																<td>9.</td>
+																<td id="pinggir">Kemampuan belajar</td>
+																<td>
+																	<?php
+																		if($f17b9 == 1 || $f17b9 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b9 == 2 || $f17b9 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b9 == 3 || $f17b9 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b9 == 4 || $f17b9 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b9 == 5 || $f17b9 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-10 -->
+																<td>10.</td>
+																<td id="pinggir">Kemampuan berkomunikasi</td>
+																<td>
+																	<?php
+																		if($f17b10 == 1 || $f17b10 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b10 == 2 || $f17b10 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b10 == 3 || $f17b10 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b10 == 4 || $f17b10 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b10 == 5 || $f17b10 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-11 -->
+																<td>11.</td>
+																<td id="pinggir">Bekerja di bawah tekanan</td>
+																<td>
+																	<?php
+																		if($f17b11 == 1 || $f17b11 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b11 == 2 || $f17b11 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b11 == 3 || $f17b11 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b11 == 4 || $f17b11 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b11 == 5 || $f17b11 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-12 -->
+																<td>12.</td>
+																<td id="pinggir">Manajemen waktu</td>
+																<td>
+																	<?php
+																		if($f17b12 == 1 || $f17b12 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b12 == 2 || $f17b12 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b12 == 3 || $f17b12 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b12 == 4 || $f17b12 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b12 == 5 || $f17b12 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-13 -->
+																<td>13.</td>
+																<td id="pinggir">Bekerja secara mandiri</td>
+																<td>
+																	<?php
+																		if($f17b13 == 1 || $f17b13 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b13 == 2 || $f17b13 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b13 == 3 || $f17b13 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b13 == 4 || $f17b13 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b13 == 5 || $f17b13 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-14 -->
+																<td>14.</td>
+																<td id="pinggir">Bekerja dalam tim / kerjasama dengan orang lain</td>
+																<td>
+																	<?php
+																		if($f17b14 == 1 || $f17b14 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b14 == 2 || $f17b14 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b14 == 3 || $f17b14 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b14 == 4 || $f17b14 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b14 == 5 || $f17b14 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-15 -->
+																<td>15.</td>
+																<td id="pinggir">Kemampuan memecahkan masalah</td>
+																<td>
+																	<?php
+																		if($f17b15 == 1 || $f17b15 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b15 == 2 || $f17b15 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b15 == 3 || $f17b15 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b15 == 4 || $f17b15 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b15 == 5 || $f17b15 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+														</table>
+														<!-- <button onclick="backProsesFieldset7a()">Kembali</button>
+														<button onclick="prosesFieldset7a()">Selanjutnya</button> -->
+													<!-- </form>f17b1-->
+												<!-- </fieldset>  -->
+												<!--fieldset7a-->
+
+												<!-- fieldset7b -->
+												<!-- <fieldset class="fieldset7b" id="fieldset7b"> -->
+													<!-- f17b2 -->
+													<!-- <form method="post" action="#"> -->
+														<table class="table" border="2">
+															<tr>
+																<td colspan="7"><b>Evaluasi Penilaian : Kontribusi Jurusan TIF UMM untuk pengembangan kemampuan Alumni (Prodi) (2/2)</b></td>
+															</tr>
+															<tr align="center" style="font-weight:bold">
+																<td>No.</td>
+																<td>Kompetensi</td>
+																<td>Keterangan</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-16 -->
+																<td>16.</td>
+																<td id="pinggir">Negosiasi</td>
+																<td>
+																	<?php
+																		if($f17b16 == 1 || $f17b16 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b16 == 2 || $f17b16 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b16 == 3 || $f17b16 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b16 == 4 || $f17b16 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b16 == 5 || $f17b16 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-17 -->
+																<td>17.</td>
+																<td id="pinggir">Kemampuan analisis</td>
+																<td>
+																	<?php
+																		if($f17b17 == 1 || $f17b17 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b17 == 2 || $f17b17 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b17 == 3 || $f17b17 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b17 == 4 || $f17b17 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b17 == 5 || $f17b17 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-18 -->
+																<td>18.</td>
+																<td id="pinggir">Toleransi</td>
+																<td>
+																	<?php
+																		if($f17b18 == 1 || $f17b18 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b18 == 2 || $f17b18 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b18 == 3 || $f17b18 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b18 == 4 || $f17b18 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b18 == 5 || $f17b18 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-19 -->
+																<td>19.</td>
+																<td id="pinggir">Kemampuan adaptasi</td>
+																<td>
+																	<?php
+																		if($f17b19 == 1 || $f17b19 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b19 == 2 || $f17b19 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b19 == 3 || $f17b19 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b19 == 4 || $f17b19 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b19 == 5 || $f17b19 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-20 -->
+																<td>20.</td>
+																<td id="pinggir">Loyalitas</td>
+																<td>
+																	<?php
+																		if($f17b20 == 1 || $f17b20 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b20 == 2 || $f17b20 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b20 == 3 || $f17b20 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b20 == 4 || $f17b20 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b20 == 5 || $f17b20 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-21 -->
+																<td>21.</td>
+																<td id="pinggir">Integritas</td>
+																<td>
+																	<?php
+																		if($f17b21 == 1 || $f17b21 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b21 == 2 || $f17b21 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b21 == 3 || $f17b21 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b21 == 4 || $f17b21 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b21 == 5 || $f17b21 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-22 -->
+																<td>22.</td>
+																<td id="pinggir">Bekerja dengan orang berbeda budaya maupun latar belakang</td>
+																<td>
+																	<?php
+																		if($f17b22 == 1 || $f17b22 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b22 == 2 || $f17b22 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b22 == 3 || $f17b22 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b22 == 4 || $f17b22 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b22 == 5 || $f17b22 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-23 -->
+																<td>23.</td>
+																<td id="pinggir">Kepemimpinan</td>
+																<td>
+																	<?php
+																		if($f17b23 == 1 || $f17b23 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b23 == 2 || $f17b23 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b23 == 3 || $f17b23 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b23 == 4 || $f17b23 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b23 == 5 || $f17b23 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-24 -->
+																<td>24.</td>
+																<td id="pinggir">Kemampuan dalam memegang tanggung jawab</td>
+																<td>
+																	<?php
+																		if($f17b24 == 1 || $f17b24 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b24 == 2 || $f17b24 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b24 == 3 || $f17b24 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b24 == 4 || $f17b24 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b24 == 5 || $f17b24 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-25 -->
+																<td>25.</td>
+																<td id="pinggir">Inisiatif</td>
+																<td>
+																	<?php
+																		if($f17b25 == 1 || $f17b25 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b25 == 2 || $f17b25 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b25 == 3 || $f17b25 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b25 == 4 || $f17b25 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b25 == 5 || $f17b25 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-26 -->
+																<td>26.</td>
+																<td id="pinggir">Manajemen proyek / program</td>
+																<td>
+																	<?php
+																		if($f17b26 == 1 || $f17b26 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b26 == 2 || $f17b26 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b26 == 3 || $f17b26 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b26 == 4 || $f17b26 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b26 == 5 || $f17b26 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-27 -->
+																<td>27.</td>
+																<td id="pinggir">Kemampuan memresentasikan ide / produk / laporan</td>
+																<td>
+																	<?php
+																		if($f17b27 == 1 || $f17b27 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b27 == 2 || $f17b27 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b27 == 3 || $f17b27 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b27 == 4 || $f17b27 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b27 == 5 || $f17b27 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-28 -->
+																<td>28.</td>
+																<td id="pinggir">Kemampuan dalam menulis laporan, memo, dan dokumen</td>
+																<td>
+																	<?php
+																		if($f17b28 == 1 || $f17b28 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b28 == 2 || $f17b28 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b28 == 3 || $f17b28 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b28 == 4 || $f17b28 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b28 == 5 || $f17b28 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+															<tr align="center">
+																<!-- f17b-29 -->
+																<td>29.</td>
+																<td id="pinggir">Kemampuan untuk terus belajar sepanjang hayat</td>
+																<td>
+																	<?php
+																		if($f17b29 == 1 || $f17b29 == '1'){
+																			echo '<output name="result">Sangat Rendah</output>';
+																		}else if($f17b29 == 2 || $f17b29 == '2'){
+																			echo '<output name="result">Rendah</output>';
+																		}else if($f17b29 == 3 || $f17b29 == '3'){
+																			echo '<output name="result">Cukup</output>';
+																		}else if($f17b29 == 4 || $f17b29 == '4'){
+																			echo '<output name="result">Tinggi</output>';
+																		}else if($f17b29 == 5 || $f17b29 == '5'){
+																			echo '<output name="result">Sangat Tinggi</output>';
+																		}else{
+																			echo '<output name="result">Belum mengisi.</output>';
+																		}
+																	?>
+																</td>
+															</tr>
+														</table>
+														<!-- <button onclick="backProsesFieldset7b()">Kembali</button>
+														<button onclick="prosesFieldset7b()">Selesai</button> -->
+													<!-- </form>f17b2-->
+												<!-- </fieldset> -->
+												<!--fieldset7b-->
+
+											<!-- </form> -->
+											<!-- form -->
+										</div><!--panel body -->
+
+
+				</div><!--panel form tracer study panel-default-->
+			</div><!--/.col-->
+		</div><!--/.row isi kontent form tracer study-->
+	</div>	<!--/.main container tracer study-->
+
+	<script src="<?php echo base_url('assets/js/jquery-1.11.1.min.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/bootstrap.min.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/chart.min.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/chart-data.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/easypiechart.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/easypiechart-data.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/bootstrap-datepicker.js');?>"></script>
+
+	<!--javascript indie aluminium -->
+	<!-- <script src="<?php echo base_url('assets/js/aluminium.js');?>"></script> -->
+	<!-- <script src="<?php echo base_url('assets/js/tes.js');?>"/> -->
+
+	</script>
+	</script>
+
+	<!--Icons-->
+	<script src="<?php echo base_url('assets/js/lumino.glyphs.js');?>"></script>
+
+	<!-- <script>
+		$('#calendar').datepicker({
+		});
+
+		!function ($) {
+		    $(document).on("click","ul.nav li.parent > a > span.icon", function(){
+		        $(this).find('em:first').toggleClass("glyphicon-minus");
+		    });
+		    $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+		}(window.jQuery);
+
+		$(window).on('resize', function () {
+		  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+		})
+		$(window).on('resize', function () {
+		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+		})
+	</script> -->
+</body>
+</html>

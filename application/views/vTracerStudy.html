@@ -1,0 +1,2339 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Aluminium - Tracer Study</title>
+
+	<!--bootstrap,datepicker3,style-css-->
+	<link href="<?php echo base_url('assets/css/bootstrap.min.css');?>" rel="stylesheet">
+	<link href="<?php echo base_url('assets/css/datepicker3.css');?>" rel="stylesheet">
+	<link href="<?php echo base_url('assets/css/styles.css');?>" rel="stylesheet">
+
+	<!-- css popup -->
+	<link href="<?php echo base_url('assets/css/popup.css');?>" rel="stylesheet">
+
+	<!--[if lt IE 9]>
+	<script src="js/html5shiv.js"></script>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+	<style>
+		#terimakasih {display: none;}
+		form #multiphaseForm > #fieldset1, #fieldset2, #fieldset3, #fieldset4, #fieldset5, #fieldset6a, #fieldset6b, #fieldset7a, #fieldset7b {display: none;}
+		#pinggir{text-align: left;}
+	</style>
+
+	<script type="text/javascript">
+		var x, y, f3, f31, b_kembali, tanggalHariIni;
+
+		//getElementById
+		function _(x){
+			return document.getElementById(x);
+		}
+
+		function __(y){
+			return document.getElementsByName(y);
+		}
+
+		// fungsi tampil popup
+		function bukaPopup(){
+			_('popup').style.display = 'inherit';
+		}
+		function bukaPopup2(){
+			_('popup2').style.display = 'inherit';
+		}
+
+		function bukaPopupTerimakasih(){
+			_('popup3').style.display = 'inherit';
+		}
+
+		//fungsi tutup popup
+		function tutupPopup(){
+				 _('popup').style.display = 'none';
+				 _('popup2').style.display = 'none';
+				 _('popup3').style.display = 'none';
+		}
+
+		//fungsi cek id_alumni sudah isi traacer study / belum
+		function xxx(){
+			var id_alumni = 0;
+			var status_ts = 0;
+			var nilai = 0;
+			status_ts = _('status_ts').value;
+			id_alumni = _('id_alumni_fk').value;
+			if(status_ts == 8 ){
+				bukaPopupTerimakasih();
+			}else if (status_ts == 0) {
+				bukaPopup();
+			}
+			else{
+					bukaPopup2();
+					_('fieldset1').style.display = 'none';
+					_('fieldset2').style.display = 'block';
+					_('progressBar').value = 25;
+			}
+		}
+
+		function refreshDashboard(){
+				window.location.href = "<?php echo base_url('index.php/Alumni');?>";
+		}
+
+		function edit_ts(){
+			_('popup3').style.display = 'none';
+			_('progressBar').value = 100;
+		}
+
+		function prosesKembali() {
+			b_kembali = _('tb_6a').value;
+			if(b_kembali = 61){
+				_('fieldset6b').style.display = 'none';
+				_('fieldset6a').style.display = 'block';
+				_('progressBar').value = 50;
+			}
+		}
+
+		function prosesFieldset1(){
+			var radios = document.getElementsByName('f3');
+			tanggalHariIni = _('tanggalHariIni').value;
+			for (var rr=0 ; rr < radios.length; rr++){
+				if(radios[rr].checked){
+					var dataf3 = radios[rr].value;
+					if (dataf3 == 1 || dataf3 == 2 ){
+						var f3 = dataf3;
+						$.ajax({
+							url     : "<?php echo base_url().'index.php/TracerStudy/masuk_data_ts';?>",
+							type    : 'post',
+							data    : {'f3' : f3, 'proses' : 1, 'tanggalIsi' : tanggalHariIni},
+							success : function(data){
+								console.log(data);
+							}
+						});
+						_('fieldset1').style.display = 'none';
+						_('fieldset2').style.display = 'block';
+						_('progressBar').value = 25;
+					}else{
+						var f3 = dataf3;
+						$.ajax({
+							url     : "<?php echo base_url().'index.php/TracerStudy/masuk_data_ts';?>",
+							type    : 'post',
+							data    : {'f3' : f3, 'proses' : 1, 'tanggalIsi' : tanggalHariIni},
+							success : function(data){
+								console.log(data);
+							}
+						});
+						_('fieldset1').style.display = 'none';
+						_('fieldset3').style.display = 'block';
+						_('progressBar').value = 25;
+					}
+				}
+			}
+		}
+
+
+		function prosesFieldset2(){
+			//ambil data f4
+			var radios = document.getElementsByName('f4');
+			tanggalHariIni = _('tanggalHariIni').value;
+			for (var r=0; r<radios.length; r++){
+				if(radios[r].checked){
+					var dataF4 = radios[r].value;
+					_('fieldset2').style.display = 'none';
+					_('fieldset3').style.display = 'block';
+					_('progressBar').value = 45;
+				}
+			}
+			var f4 = dataF4;
+			var f5 = document.getElementById('f5').value;
+			var f6 = document.getElementById('f6').value;
+			var f7 = document.getElementById('f7').value;
+			var f7a = document.getElementById('f7a').value;
+			$.ajax({
+				url     : "<?php echo base_url().'index.php/TracerStudy/masuk_data_ts';?>",
+				type    : 'post',
+				data    : {'f4' : f4, 'f5' : f5, 'f6' : f6, 'f7' : f7, 'f7a' : f7a, 'proses' : 2, 'tanggalIsi' : tanggalHariIni},
+				success : function(data){
+					console.log(data);
+				}
+			});
+		}
+
+		function prosesFieldset3(){
+			var radioF8 = __('f8');
+			tanggalHariIni = _('tanggalHariIni').value;
+			// ambil data f8
+			for(var a=0; a<radioF8.length; a++){
+				if(radioF8[a].checked){
+					var dataF8 = radioF8[a].value;
+					if (dataF8 == 1) {
+						var f8 = dataF8;
+						$.ajax({
+							url     : "<?php echo base_url().'index.php/TracerStudy/masuk_data_ts';?>",
+							type    : 'post',
+							data    : {'f8' : f8, 'proses' : 3, 'tanggalIsi' : tanggalHariIni },
+							success : function(data){
+								console.log(data);
+							}
+						});
+						_('fieldset3').style.display = 'none';
+						_('fieldset4').style.display = 'block';
+						_('progressBar').value = 65;
+					}else{
+						var f8 = dataF8;
+						$.ajax({
+							url     : "<?php echo base_url().'index.php/TracerStudy/masuk_data_ts';?>",
+							type    : 'post',
+							data    : {'f8' : f8, 'proses' : 3, 'tanggalIsi' : tanggalHariIni },
+							success : function(data){
+								console.log(data);
+							}
+						});
+						_('fieldset3').style.display = 'none';
+						_('fieldset5').style.display = 'block';
+						_('progressBar').value = 65;
+					}
+				}
+			}
+		}
+
+		function prosesFieldset4(){
+			tanggalHariIni = _('tanggalHariIni').value;
+			var radioF11 = __('f11');
+			var checkboxF12 = _('checkboxF12');
+			var radioF13 = __('f13');
+			var radioF14 = __('f14');
+			var radioF15 = __('f15');
+			var radioF16 = __('f16');
+
+			//ambil data f11
+			for (var a=0; a<radioF11.length; a++){
+				if(radioF11[a].checked){
+					var dataF11 = radioF11[a].value;
+				}
+			}
+
+			// ambil data f13
+			for(var c=0; c<radioF13.length; c++){
+				if(radioF13[c].checked){
+					var dataF13 = radioF13[c].value;
+				}
+			}
+
+			//ambil data f14
+			for(var d=0; d<radioF14.length; d++){
+				if(radioF14[d].checked){
+					var dataF14 = radioF14[d].value;
+				}
+			}
+
+			// ambil data f15
+			for(var e=0; e<radioF15.length; e++){
+				if(radioF15[e].checked){
+					var dataF15 = radioF15[e].value;
+				}
+			}
+
+			//ambil data f16
+			for(var f=0; f<radioF16.length; f++){
+				if(radioF16[f].checked){
+					var dataF16 = radioF16[f].value;
+				}
+			}
+
+			var f11 = dataF11;
+			var f12 = checkboxF12.options[checkboxF12.selectedIndex].value;
+			var f13 = dataF13;
+			var f14 = dataF14;
+			var f15 = dataF15;
+			var f16 = dataF16;
+
+			$.ajax({
+				url     : "<?php echo base_url().'index.php/TracerStudy/masuk_data_ts';?>",
+				type    : 'post',
+				data    : {'f11' : f11, 'f12' : f12, 'f13' : f13, 'f14' : f14, 'f15' : f15, 'f16' : f16, 'proses' : 4, 'tanggalIsi' : tanggalHariIni },
+				success : function(data){
+					console.log(data);
+				}
+			});
+			_('fieldset4').style.display = 'none';
+			_('fieldset6a').style.display = 'block';
+			_('progressBar').value = 75;
+		}
+
+		function prosesFieldset5(){
+			tanggalHariIni = _('tanggalHariIni').value;
+			var radioF9 = __('f9');
+			var radioF10 = __('f10');
+
+			// ambil data pertanyaan f9
+			for(a=0; a<radioF9.length; a++){
+				if(radioF9[a].checked){
+					var dataF9 = radioF9[a].value;
+				}
+			}
+
+			// ambil data pertanyaan f10
+			for(b=0; b<radioF10.length; b++){
+				if(radioF10[b].checked){
+					var dataF10 = radioF10[b].value;
+				}
+			}
+
+			//simpan data f9 dan 10
+			var f9 = dataF9;
+			var f10 = dataF10;
+
+			// ajax kirim data f9 dan f10 ke controller
+			$.ajax({
+				url     : "<?php echo base_url().'index.php/TracerStudy/masuk_data_ts';?>",
+				type    : 'post',
+				data    : {'f9' : f9, 'f10' : f10, 'proses' : 5, 'tanggalIsi' : tanggalHariIni },
+				success : function(data){
+					console.log(data);
+				}
+			});
+
+			//tampilan wizard selanjutnya
+			_('fieldset5').style.display = 'none';
+			_('fieldset6a').style.display = 'block';
+			_('progressBar').value = 75;
+		}
+
+		function prosesFieldset6a() {
+			tanggalHariIni = _('tanggalHariIni').value;
+			var radioF17a1 = __('f17a1');
+			var radioF17a2 = __('f17a2');
+			var radioF17a3 = __('f17a3');
+			var radioF17a4 = __('f17a4');
+			var radioF17a5 = __('f17a5');
+			var radioF17a6 = __('f17a6');
+			var radioF17a7 = __('f17a7');
+			var radioF17a8 = __('f17a8');
+			var radioF17a9 = __('f17a9');
+			var radioF17a10 = __('f17a10');
+			var radioF17a11 = __('f17a11');
+			var radioF17a12 = __('f17a12');
+			var radioF17a13 = __('f17a13');
+			var radioF17a14 = __('f17a14');
+			var radioF17a15 = __('f17a15');
+
+			//ambil data f17a1
+			for (var g=0; g<radioF17a1.length; g++){
+				if(radioF17a1[g].checked){
+					var dataF17a1 = radioF17a1[g].value;
+				}
+			}
+
+			//ambil data f17a2
+			for (var h=0; h<radioF17a2.length; h++){
+				if(radioF17a2[h].checked){
+					var dataF17a2 = radioF17a2[h].value;
+				}
+			}
+			//ambil data f17a3
+			for (var i=0; i<radioF17a3.length; i++){
+				if(radioF17a3[i].checked){
+					var dataF17a3 = radioF17a3[i].value;
+				}
+			}
+			//ambil data f17a4
+			for (var j=0; j<radioF17a4.length; j++){
+				if(radioF17a4[j].checked){
+					var dataF17a4 = radioF17a4[j].value;
+				}
+			}
+			//ambil data f17a5
+			for (var k=0; k<radioF17a5.length; k++){
+				if(radioF17a5[k].checked){
+					var dataF17a5 = radioF17a5[k].value;
+				}
+			}
+
+			//ambil data f17a6
+			for (var l=0; l<radioF17a6.length; l++){
+				if(radioF17a6[l].checked){
+					var dataF17a6 = radioF17a6[l].value;
+				}
+			}
+
+			//ambil data f17a7
+			for (var m=0; m<radioF17a7.length; m++){
+				if(radioF17a7[m].checked){
+					var dataF17a7 = radioF17a7[m].value;
+				}
+			}
+			//ambil data f17a8
+			for (var n=0; n<radioF17a8.length; n++){
+				if(radioF17a8[n].checked){
+					var dataF17a8 = radioF17a8[n].value;
+				}
+			}
+			//ambil data f17a9
+			for (var o=0; o<radioF17a9.length; o++){
+				if(radioF17a9[o].checked){
+					var dataF17a9 = radioF17a9[o].value;
+				}
+			}
+			//ambil data f17a10
+			for (var p=0; p<radioF17a10.length; p++){
+				if(radioF17a10[p].checked){
+					var dataF17a10 = radioF17a10[p].value;
+				}
+			}
+
+			//ambil data f17a11
+			for (var q=0; q<radioF17a11.length; q++){
+				if(radioF17a11[q].checked){
+					var dataF17a11 = radioF17a11[q].value;
+				}
+			}
+
+			//ambil data f17a12
+			for (var r=0; r<radioF17a12.length; r++){
+				if(radioF17a12[r].checked){
+					var dataF17a12 = radioF17a12[r].value;
+				}
+			}
+			//ambil data f17a13
+			for (var s=0; s<radioF17a13.length; s++){
+				if(radioF17a13[s].checked){
+					var dataF17a13 = radioF17a13[s].value;
+				}
+			}
+			//ambil data f17a14
+			for (var t=0; t<radioF17a14.length; t++){
+				if(radioF17a14[t].checked){
+					var dataF17a14 = radioF17a14[t].value;
+				}
+			}
+			//ambil data f17a15
+			for (var u=0; u<radioF17a15.length; u++){
+				if(radioF17a15[u].checked){
+					var dataF17a15 = radioF17a15[u].value;
+				}
+			}
+
+			var f17a1 = dataF17a1;
+			var f17a2 = dataF17a2;
+			var f17a3 = dataF17a3;
+			var f17a4 = dataF17a4;
+			var f17a5 = dataF17a5;
+			var f17a6 = dataF17a6;
+			var f17a7 = dataF17a7;
+			var f17a8 = dataF17a8;
+			var f17a9 = dataF17a9;
+			var f17a10 = dataF17a10;
+			var f17a11 = dataF17a11;
+			var f17a12 = dataF17a12;
+			var f17a13 = dataF17a13;
+			var f17a14 = dataF17a14;
+			var f17a15 = dataF17a15;
+
+			$.ajax({
+				url     : "<?php echo base_url().'index.php/TracerStudy/masuk_data_ts_sdm';?>",
+				type    : 'post',
+				data    : {'f17a1' : f17a1, 'f17a2' : f17a2, 'f17a3' : f17a3, 'f17a4' : f17a4, 'f17a5' : f17a5, 'f17a6' : f17a6, 'f17a7' : f17a7, 'f17a8' : f17a8, 'f17a9' : f17a9, 'f17a10' : f17a10, 'f17a11' : f17a11, 'f17a12' : f17a12, 'f17a13' : f17a13, 'f17a14' : f17a14, 'f17a15' : f17a15, 'proses' : 61, 'tanggalIsi' : tanggalHariIni },
+				success : function(data){
+					console.log(data);
+				}
+			});
+
+			_('fieldset6a').style.display = 'none';
+			_('fieldset6b').style.display = 'block';
+			_('progressBar').value = 80;
+		}
+
+		function prosesFieldset6b() {
+			tanggalHariIni = _('tanggalHariIni').value;
+			var radioF17a16 = __('f17a16');
+			var radioF17a17 = __('f17a17');
+			var radioF17a18 = __('f17a18');
+			var radioF17a19 = __('f17a19');
+			var radioF17a20 = __('f17a20');
+			var radioF17a21 = __('f17a21');
+			var radioF17a22 = __('f17a22');
+			var radioF17a23 = __('f17a23');
+			var radioF17a24 = __('f17a24');
+			var radioF17a25 = __('f17a25');
+			var radioF17a26 = __('f17a26');
+			var radioF17a27 = __('f17a27');
+			var radioF17a28 = __('f17a28');
+			var radioF17a29 = __('f17a29');
+
+			//ambil data f17a16
+			for (g=0; g<radioF17a16.length; g++){
+				if(radioF17a16[g].checked){
+					var dataF17a16 = radioF17a16[g].value;
+				}
+			}
+
+			//ambil data f17a17
+			for ( h=0; h<radioF17a17.length; h++){
+				if(radioF17a17[h].checked){
+					var dataF17a17 = radioF17a17[h].value;
+				}
+			}
+			//ambil data f17a18
+			for (i=0; i<radioF17a18.length; i++){
+				if(radioF17a18[i].checked){
+					var dataF17a18 = radioF17a18[i].value;
+				}
+			}
+			//ambil data f17a19
+			for (j=0; j<radioF17a19.length; j++){
+				if(radioF17a19[j].checked){
+					var dataF17a19 = radioF17a19[j].value;
+				}
+			}
+			//ambil data f17a20
+			for (k=0; k<radioF17a20.length; k++){
+				if(radioF17a20[k].checked){
+					var dataF17a20 = radioF17a20[k].value;
+				}
+			}
+
+			//ambil data f17a21
+			for (l=0; l<radioF17a21.length; l++){
+				if(radioF17a21[l].checked){
+					var dataF17a21 = radioF17a21[l].value;
+				}
+			}
+
+			//ambil data f17a22
+			for (m=0; m<radioF17a22.length; m++){
+				if(radioF17a22[m].checked){
+					var dataF17a22 = radioF17a22[m].value;
+				}
+			}
+			//ambil data f17a23
+			for (n=0; n<radioF17a23.length; n++){
+				if(radioF17a23[n].checked){
+					var dataF17a23 = radioF17a23[n].value;
+				}
+			}
+			//ambil data f17a24
+			for (o=0; o<radioF17a24.length; o++){
+				if(radioF17a24[o].checked){
+					var dataF17a24 = radioF17a24[o].value;
+				}
+			}
+			//ambil data f17a25
+			for (p=0; p<radioF17a25.length; p++){
+				if(radioF17a25[p].checked){
+					var dataF17a25 = radioF17a25[p].value;
+				}
+			}
+
+			//ambil data f17a26
+			for (q=0; q<radioF17a26.length; q++){
+				if(radioF17a26[q].checked){
+					var dataF17a26 = radioF17a26[q].value;
+				}
+			}
+
+			//ambil data f17a27
+			for (r=0; r<radioF17a27.length; r++){
+				if(radioF17a27[r].checked){
+					var dataF17a27 = radioF17a27[r].value;
+				}
+			}
+			//ambil data f17a28
+			for (s=0; s<radioF17a28.length; s++){
+				if(radioF17a28[s].checked){
+					var dataF17a28 = radioF17a28[s].value;
+				}
+			}
+			//ambil data f17a29
+			for (t=0; t<radioF17a29.length; t++){
+				if(radioF17a29[t].checked){
+					var dataF17a29 = radioF17a29[t].value;
+				}
+			}
+
+			var f17a16 = dataF17a16;
+			var f17a17 = dataF17a17;
+			var f17a18 = dataF17a18;
+			var f17a19 = dataF17a19;
+			var f17a20 = dataF17a20;
+			var f17a21 = dataF17a21;
+			var f17a22 = dataF17a22;
+			var f17a23 = dataF17a23;
+			var f17a24 = dataF17a24;
+			var f17a25 = dataF17a25;
+			var f17a26 = dataF17a26;
+			var f17a27 = dataF17a27;
+			var f17a28 = dataF17a28;
+			var f17a29 = dataF17a29;
+
+			$.ajax({
+				url     : "<?php echo base_url().'index.php/TracerStudy/masuk_data_ts_sdm';?>",
+				type    : 'post',
+				data    : {'f17a16' : f17a16, 'f17a17' : f17a17, 'f17a18' : f17a18, 'f17a19' : f17a19, 'f17a20' : f17a20, 'f17a21' : f17a21, 'f17a22' : f17a22, 'f17a23' : f17a23, 'f17a24' : f17a24, 'f17a25' : f17a25, 'f17a26' : f17a26, 'f17a27' : f17a27, 'f17a28' : f17a28, 'f17a29' : f17a29, 'proses' : 62, 'tanggalIsi' : tanggalHariIni },
+				success : function(data){
+					console.log(data);
+				}
+			});
+
+			_('fieldset6b').style.display = 'none';
+			_('fieldset7a').style.display = 'block';
+			_('progressBar').value = 85;
+		}
+
+		function prosesFieldset7a() {
+			tanggalHariIni = _('tanggalHariIni').value;
+			var radioF17b1 = __('f17b1');
+			var radioF17b2 = __('f17b2');
+			var radioF17b3 = __('f17b3');
+			var radioF17b4 = __('f17b4');
+			var radioF17b5 = __('f17b5');
+			var radioF17b6 = __('f17b6');
+			var radioF17b7 = __('f17b7');
+			var radioF17b8 = __('f17b8');
+			var radioF17b9 = __('f17b9');
+			var radioF17b10 = __('f17b10');
+			var radioF17b11 = __('f17b11');
+			var radioF17b12 = __('f17b12');
+			var radioF17b13 = __('f17b13');
+			var radioF17b14 = __('f17b14');
+			var radioF17b15 = __('f17b15');
+
+			//ambil data f17b1
+			for (g=0; g<radioF17b1.length; g++){
+				if(radioF17b1[g].checked){
+					var dataF17b1 = radioF17b1[g].value;
+				}
+			}
+
+			//ambil data f17b2
+			for (h=0; h<radioF17b2.length; h++){
+				if(radioF17b2[h].checked){
+					var dataF17b2 = radioF17b2[h].value;
+				}
+			}
+			//ambil data f17b3
+			for (i=0; i<radioF17b3.length; i++){
+				if(radioF17b3[i].checked){
+					var dataF17b3 = radioF17b3[i].value;
+				}
+			}
+			//ambil data f17b4
+			for (j=0; j<radioF17b4.length; j++){
+				if(radioF17b4[j].checked){
+					var dataF17b4 = radioF17b4[j].value;
+				}
+			}
+			//ambil data f17b5
+			for (k=0; k<radioF17b5.length; k++){
+				if(radioF17b5[k].checked){
+					var dataF17b5 = radioF17b5[k].value;
+				}
+			}
+
+			//ambil data f17b6
+			for (l=0; l<radioF17b6.length; l++){
+				if(radioF17b6[l].checked){
+					var dataF17b6 = radioF17b6[l].value;
+				}
+			}
+
+			//ambil data f17b7
+			for (m=0; m<radioF17b7.length; m++){
+				if(radioF17b7[m].checked){
+					var dataF17b7 = radioF17b7[m].value;
+				}
+			}
+			//ambil data f17b8
+			for (n=0; n<radioF17b8.length; n++){
+				if(radioF17b8[n].checked){
+					var dataF17b8 = radioF17b8[n].value;
+				}
+			}
+			//ambil data f17b9
+			for (o=0; o<radioF17b9.length; o++){
+				if(radioF17b9[o].checked){
+					var dataF17b9 = radioF17b9[o].value;
+				}
+			}
+			//ambil data f17b10
+			for (p=0; p<radioF17b10.length; p++){
+				if(radioF17b10[p].checked){
+					var dataF17b10 = radioF17b10[p].value;
+				}
+			}
+
+			//ambil data f17b11
+			for (q=0; q<radioF17b11.length; q++){
+				if(radioF17b11[q].checked){
+					var dataF17b11 = radioF17b11[q].value;
+				}
+			}
+
+			//ambil data f17b12
+			for (r=0; r<radioF17b12.length; r++){
+				if(radioF17b12[r].checked){
+					var dataF17b12 = radioF17b12[r].value;
+				}
+			}
+			//ambil data f17b13
+			for (s=0; s<radioF17b13.length; s++){
+				if(radioF17b13[s].checked){
+					var dataF17b13 = radioF17b13[s].value;
+				}
+			}
+			//ambil data f17b14
+			for (t=0; t<radioF17b14.length; t++){
+				if(radioF17b14[t].checked){
+					var dataF17b14 = radioF17b14[t].value;
+				}
+			}
+			//ambil data f17b15
+			for (u=0; u<radioF17b15.length; u++){
+				if(radioF17b15[u].checked){
+					var dataF17b15 = radioF17b15[u].value;
+				}
+			}
+
+			var f17b1 = dataF17b1;
+			var f17b2 = dataF17b2;
+			var f17b3 = dataF17b3;
+			var f17b4 = dataF17b4;
+			var f17b5 = dataF17b5;
+			var f17b6 = dataF17b6;
+			var f17b7 = dataF17b7;
+			var f17b8 = dataF17b8;
+			var f17b9 = dataF17b9;
+			var f17b10 = dataF17b10;
+			var f17b11 = dataF17b11;
+			var f17b12 = dataF17b12;
+			var f17b13 = dataF17b13;
+			var f17b14 = dataF17b14;
+			var f17b15 = dataF17b15;
+
+
+			$.ajax({
+				url     : "<?php echo base_url().'index.php/TracerStudy/masuk_data_ts_sdm';?>",
+				type    : 'post',
+				data    : {'f17b1' : f17b1, 'f17b2' : f17b2, 'f17b3' : f17b3, 'f17b4' : f17b4, 'f17b5' : f17b5, 'f17b6' : f17b6, 'f17b7' : f17b7, 'f17b8' : f17b8, 'f17b9' : f17b9, 'f17b10' : f17b10, 'f17b11' : f17b11, 'f17b12' : f17b12, 'f17b13' : f17b13, 'f17b14' : f17b14, 'f17b15' : f17b15, 'proses' : 71, 'tanggalIsi' : tanggalHariIni },
+				success : function(data){
+					console.log(data);
+				}
+			});
+
+			_('fieldset7a').style.display = 'none';
+			_('fieldset7b').style.display = 'block';
+			_('progressBar').value = 95;
+		}
+
+		function prosesFieldset7b(){
+			tanggalHariIni = _('tanggalHariIni').value;
+			var radioF17b16 = __('f17b16');
+			var radioF17b17 = __('f17b17');
+			var radioF17b18 = __('f17b18');
+			var radioF17b19 = __('f17b19');
+			var radioF17b20 = __('f17b20');
+			var radioF17b21 = __('f17b21');
+			var radioF17b22 = __('f17b22');
+			var radioF17b23 = __('f17b23');
+			var radioF17b24 = __('f17b24');
+			var radioF17b25 = __('f17b25');
+			var radioF17b26 = __('f17b26');
+			var radioF17b27 = __('f17b27');
+			var radioF17b28 = __('f17b28');
+			var radioF17b29 = __('f17b29');
+
+			//ambil data f17b16
+			for (g=0; g<radioF17b16.length; g++){
+				if(radioF17b16[g].checked){
+					var dataF17b16 = radioF17b16[g].value;
+				}
+			}
+
+			//ambil data f17b17
+			for ( h=0; h<radioF17b17.length; h++){
+				if(radioF17b17[h].checked){
+					var dataF17b17 = radioF17b17[h].value;
+				}
+			}
+			//ambil data f17b18
+			for (i=0; i<radioF17b18.length; i++){
+				if(radioF17b18[i].checked){
+					var dataF17b18 = radioF17b18[i].value;
+				}
+			}
+			//ambil data f17b19
+			for (j=0; j<radioF17b19.length; j++){
+				if(radioF17b19[j].checked){
+					var dataF17b19 = radioF17b19[j].value;
+				}
+			}
+			//ambil data f17b20
+			for (k=0; k<radioF17b20.length; k++){
+				if(radioF17b20[k].checked){
+					var dataF17b20 = radioF17b20[k].value;
+				}
+			}
+
+			//ambil data f17b21
+			for (l=0; l<radioF17b21.length; l++){
+				if(radioF17b21[l].checked){
+					var dataF17b21 = radioF17b21[l].value;
+				}
+			}
+
+			//ambil data f17b22
+			for (m=0; m<radioF17b22.length; m++){
+				if(radioF17b22[m].checked){
+					var dataF17b22 = radioF17b22[m].value;
+				}
+			}
+			//ambil data f17b23
+			for (n=0; n<radioF17b23.length; n++){
+				if(radioF17b23[n].checked){
+					var dataF17b23 = radioF17b23[n].value;
+				}
+			}
+			//ambil data f17b24
+			for (o=0; o<radioF17b24.length; o++){
+				if(radioF17b24[o].checked){
+					var dataF17b24 = radioF17b24[o].value;
+				}
+			}
+			//ambil data f17b25
+			for (p=0; p<radioF17b25.length; p++){
+				if(radioF17b25[p].checked){
+					var dataF17b25 = radioF17b25[p].value;
+				}
+			}
+
+			//ambil data f17b26
+			for (q=0; q<radioF17b26.length; q++){
+				if(radioF17b26[q].checked){
+					var dataF17b26 = radioF17b26[q].value;
+				}
+			}
+
+			//ambil data f17b27
+			for (r=0; r<radioF17b27.length; r++){
+				if(radioF17b27[r].checked){
+					var dataF17b27 = radioF17b27[r].value;
+				}
+			}
+			//ambil data f17b28
+			for (s=0; s<radioF17b28.length; s++){
+				if(radioF17b28[s].checked){
+					var dataF17b28 = radioF17b28[s].value;
+				}
+			}
+			//ambil data f17b29
+			for (t=0; t<radioF17b29.length; t++){
+				if(radioF17b29[t].checked){
+					var dataF17b29 = radioF17b29[t].value;
+				}
+			}
+
+			var f17b16 = dataF17b16;
+			var f17b17 = dataF17b17;
+			var f17b18 = dataF17b18;
+			var f17b19 = dataF17b19;
+			var f17b20 = dataF17b20;
+			var f17b21 = dataF17b21;
+			var f17b22 = dataF17b22;
+			var f17b23 = dataF17b23;
+			var f17b24 = dataF17b24;
+			var f17b25 = dataF17b25;
+			var f17b26 = dataF17b26;
+			var f17b27 = dataF17b27;
+			var f17b28 = dataF17b28;
+			var f17b29 = dataF17b29;
+
+			$.ajax({
+				url     : "<?php echo base_url().'index.php/TracerStudy/masuk_data_ts_sdm';?>",
+				type    : 'post',
+				data    : {'f17b16' : f17b16, 'f17b17' : f17b17, 'f17b18' : f17b18, 'f17b19' : f17b19, 'f17b20' : f17b20, 'f17b21' : f17b21, 'f17b22' : f17b22, 'f17b23' : f17b23, 'f17b24' : f17b24, 'f17b25' : f17b25, 'f17b26' : f17b26, 'f17b27' : f17b27, 'f17b28' : f17b28, 'f17b29' : f17b29, 'proses' : 8, 'tanggalIsi' : tanggalHariIni },
+				success : function(data){
+					console.log(data);
+				}
+			});
+
+			_('fieldset7b').style.display = 'none';
+			_('progressBar').style.display = 'none';
+			alert('Terimakasih atas partisipasi Anda karena telah menyelesaikan pengisian Form Tracer Study');
+			window.location.href="<?php echo base_url();?>index.php/Alumni";
+		}
+
+		function backProsesFieldset2() {
+			_('fieldset1').style.display = 'block';
+			_('fieldset2').style.display = 'none';
+		}
+
+		function backProsesFieldset3() {
+			var radioBackF3 = __('f3');
+
+			for(var backF3=0; backF3<radioBackF3.length; backF3++){
+				if(radioBackF3[backF3].checked){
+					var dataRadioBackF3 = radioBackF3[backF3].value;
+				}
+			}
+
+			if(dataRadioBackF3 == 1 || dataRadioBackF3 == 2){
+				_('fieldset2').style.display = 'block';
+				_('fieldset3').style.display = 'none';
+			}else if (dataRadioBackF3 == 3) {
+				_('fieldset1').style.display = 'block';
+				_('fieldset3').style.display = 'none';
+			}
+		}
+
+		function backProsesFieldset4(){
+			_('fieldset3').style.display = 'block';
+			_('fieldset4').style.display = 'none';
+		}
+
+		function backProsesFieldset5() {
+			_('fieldset3').style.display = 'block';
+			_('fieldset5').style.display = 'none';
+		}
+
+		function backProsesFieldset6a() {
+			var radioBackF9 = __('f9');
+			var radioBackF10 = __('f10');
+
+			for (var back=0; back<radioBackF9.length; back++){
+				if(radioBackF9[back].checked){
+					var dataRadioBackF9 = radioBackF9[back].value;
+				}
+			}
+
+			for (var back10=0; back10<radioBackF10.length; back10++){
+				if(radioBackF10[back10].checked){
+					var dataRadioBackF10 = radioBackF10[back10].value;
+				}
+			}
+
+			if( dataRadioBackF9 == 0 || dataRadioBackF9 == null){
+				if( dataRadioBackF10 == 0 || dataRadioBackF10 == null){
+					_('fieldset4').style.display = 'block';
+					_('fieldset6a').style.display = 'none';
+				}
+			}else{
+				_('fieldset5').style.display = 'block';
+				_('fieldset6a').style.display = 'none';
+			}
+		}
+
+		function backProsesFieldset6b() {
+			_('fieldset6a').style.display = 'block';
+			_('fieldset6b').style.display = 'none';
+		}
+
+		function backProsesFieldset7a() {
+			_('fieldset6b').style.display = 'block';
+			_('fieldset7a').style.display = 'none';
+		}
+
+		function backProsesFieldset7b() {
+			_('fieldset7a').style.display = 'block';
+			_('fieldset7b').style.display = 'none';
+		}
+
+	</script>
+</head>
+
+<body >
+
+	<!--popup aluminium status isi tracer study-->
+	<!-- popup 1 jika belum pernah isi ts -->
+	<div class="popup" id="popup" style="width:100%;padding-top:150px;">
+		<div class="popup-content">
+			<div class="popup-head">
+				<button class="close-popup" onclick="tutupPopup()"><font color="black">x</font></button>
+				<h2>Pengisian Tracer Study Alumni</h2>
+			</div>
+			<div class="popup-main">
+				<font size="5"><b>Selamat datang, <?php echo $this->session->nama; ?></b></font>
+				<p>Silahkan Anda mengisi Tracer Study Alumni.<br>
+				Terimakasih atas waktu, dan bantuannya.<br>
+				Sukses selalu untuk Anda.</p>
+			</div>
+			<div class="popup-foot">
+				<p>Aluminium TIF UMM</p>
+			</div>
+		</div><!--popup kontent-->
+	</div><!--popup tracer study-->
+
+	<!-- popup2 lanjut isi ts -->
+	<div class="popup" id="popup2" style="width:100%;padding-top:150px;">
+		<div class="popup-content">
+			<div class="popup-head">
+				<button class="close-popup" onclick="tutupPopup()"><font color="black">x</font></button>
+				<h2>Pengisian Tracer Study Alumni</h2>
+			</div>
+			<div class="popup-main">
+				<font size="5"><b>Selamat datang, <?php echo $this->session->nama; ?></b></font>
+				<p>Terimakasih atas partisipasi Anda.<br> Silahkan untuk Anda dapat melanjutkan, atau memperbaharui data dari Form Tracer Study ini.<br>Terimakasih atas bantuannya, sukses selalu untuk Anda.
+				</p>
+			</div>
+			<div class="popup-foot">
+				<p>Aluminium TIF UMM</p>
+			</div>
+		</div><!--popup kontent-->
+	</div>
+	<!-- popup2 -->
+
+	<!-- popup3 terimakasih sudah isi -->
+	<div class="popup" id="popup3" style="width:100%;padding-top:150px">
+		<div class="popup-content">
+			<div class="popup-head">
+				<button class="close-popup" onclick="refreshDashboard()"><font color="black">x</font></button>
+				<h2>Pengisian Tracer Study Alumni</h2>
+			</div>
+			<div class="popup-main">
+				<font size="5"><b>Terimakasih, <?php echo $this->session->nama; ?></b></font>
+				<p>
+					Terimakasih atas partisipasi Anda dalam mengisi Form Tracer Study ini.<br>Partisipasi Anda sangat membantu Kami, untuk terus maju dan berkembang.<br>Semoga sukses selalu untuk Anda sekalian.<br>Apabila Anda ingin memperbarui / edit data tracer study yang telah Anda isi. Silahkan klik, link berikut <a type="edit_ts" name="edit_ts" onclick="edit_ts()">Edit</a>
+				</p>
+			</div>
+			<div class="popup-foot">
+				<p>Aluminium TIF UMM</p>
+			</div>
+		</div><!--popup kontent-->
+	</div>
+	<!-- popup3 -->
+
+	<!--navBar-->
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="<?php echo site_url('Alumni');?>"><span>Aluminium</span></a>
+				<ul class="user-menu">
+					<li class="dropdown pull-right">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg><?php echo $nama;?> <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="<?php echo site_url('Alumni/profile_alumni');?>"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Profile</a></li>
+							<li><a href="<?php echo site_url('Alumni/logout');?>"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg> Logout</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div><!-- /.container-fluid -->
+	</nav><!-- navbar -->
+
+	<!-- sidebar -->
+	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+		<ul class="nav menu">
+			<li><a href="<?php echo site_url('Alumni');?>"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
+			<li class="active"><a href="<?php echo site_url('Alumni/TracerStudy');?>"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Tracer Study</a></li>
+			<li><a href="<?php echo site_url('Alumni/PersebaranAlumni');?>"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> Pencarian Alumni</a></li>
+			<li><a href="<?php echo site_url('Alumni/InfoGrafik');?>"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg> Informasi Grafik</a></li>
+			<li><a href="<?php echo site_url('Alumni/Stakeholder');?>"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"></use></svg> Stakeholder</a></li>
+		</ul>
+		<!-- <div class="attribution">Template by <a href="http://www.medialoot.com/item/lumino-admin-bootstrap-template/">Medialoot</a><br/><a href="http://www.glyphs.co" style="color: #333;">Icons by Glyphs</a></div> -->
+	</div>
+	<!--/.sidebar-->
+
+	<!-- halaman tracer study / main container tracer study -->
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+
+		<!-- tempat nilai alumni sudah isi tracer study atau belum -->
+		<!-- <label>id_alumni_fk</label> -->
+		<input type="hidden" id="id_alumni_fk" value="<?php echo $alumni_sudah_isi;?>"/>
+		<!-- <label>status_ts</label> -->
+		<input type="hidden" id="status_ts" value="<?php echo $status_ts;?>"/>
+		<!-- <label>nilai f3</label>
+		<input type="text" id="nilai" value="<?php echo $nilai;?>"/><br> -->
+		<script type="text/javascript">
+			xxx();
+		</script>
+
+		<!-- page header -->
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Tracer Study</h1>
+			</div>
+		</div><!--/.page header-->
+
+		<!-- isi konten form tracer study -->
+		<div class="row">
+			<div class="col-lg-12">
+
+				<!-- panel form tracer study -->
+				<div class="panel panel-default">
+					<div class="panel-heading  text-center"><h3><i>Tracer Study Alumni</i></h3></div>
+					<div class="tanggalHariIni">
+						<input type="hidden" name="tanggalHariIni" id="tanggalHariIni" value="<?php echo date('Y-m-d');?>"></input>
+					</div>
+
+					<!-- panel body form tracer study -->
+					<div class="panel-body">
+						<!-- progressBar -->
+						<div class="row">
+							<div class="col-lg-12 text-center">
+								<!-- <div class="progress center-block  text-center" style="width:70%;">
+									<div class="progress-bar progress-bar-striped active" role="progressbar" style="width:100%;">
+										<span>
+											Progres Pengisian ...
+										</span>
+									</div>
+								</div> -->
+								<h4 align="center">Progress Pengisian Form <i>Tracer Study </i>Alumni Aluminium</h4>
+								<progress id="progressBar" value="0" max="100" style="width:50%;"></progress>
+							</div>
+						</div>
+						<!-- <form class="" action="<?php base_url();?>TracerStudy/masuk_data_ts" method="post">
+							<input type="text" name="tes" value="1">
+							<input type="submit" name="submit" value="Simpan">
+
+						</form> -->
+						<!-- <form class="multiphaseForm" id="multiphaseForm" onsubmit="return false" method="post" action="<?php base_url();?>TracerStudy/masuk_data_ts"> -->
+
+							<!--fieldset pertama-->
+							<fieldset class="fieldset1" id="fieldset1">
+								<!-- f3 -->
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-8">
+											<label>1. Kapan anda mulai mencari pekerjaan ?</label>
+										</div>
+									</div>
+									<div class="row ">
+										<input class="col-lg-1" id="f31" name="f3" type="radio" value="1" class="form-control" <?php	echo set_value('f3', $f3) == 1 ? "checked" : "";?>>
+										<label class="col-md-8" for="f31">Sebelum lulus</label>
+									</div>
+									<div class="row ">
+										<input class="col-lg-1" id="f32" name="f3" type="radio" value="2" class="form-control" <?php	echo set_value('f3', $f3) == 2 ? "checked" : "";?>>
+										<label class="col-md-8" for="f32">Setelah lulus</label>
+									</div>
+									<div class="row ">
+										<input class="col-lg-1" id="f33" name="f3" type="radio" value="3" class="form-control" <?php	echo set_value('f3', $f3) == 3 ? "checked" : "";?>>
+										<label class="col-md-8" for="f33">Tidak mencari kerja</label>
+									</div>
+								</div>
+								<button onclick="prosesFieldset1()">Selanjutnya</button>
+							</fieldset><!--fieldset1-->
+
+							<!--fieldset ke dua untuk form-->
+							<fieldset class="fieldset2" id="fieldset2">
+								<!-- f4 -->
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-8 ">
+											<label>2. Bagaimana anda mencari pekerjaan tersebut?</label>
+										</div>
+									</div>
+									<div class="row" >
+										<input class="col-lg-1" id="f41" name="f4" type="radio" value="1" class="form-control" <?php	echo set_value('f4', $f4) == 1 ? "checked" : "";?>/>
+										<label style="display:inline;" class="col-md-8" for="f41">Melalui iklan di koran / majalah, brosur</label>
+									</div>
+									<div class="row" >
+										<input class="col-lg-1 " id="f42" name="f4" type="radio" value="2" class="form-control" <?php	echo set_value('f4', $f4) == 2 ? "checked" : "";?>/>
+										<label style="display:inline;" class="col-md-8" for="f42">Melamar ke perusahaan tanpa mengetahui lowongan yang ada</label>
+									</div>
+									<div class="row" >
+										<input class="col-lg-1 " id="f43" name="f4" type="radio" value="3" class="form-control" <?php	echo set_value('f4', $f4) == 3 ? "checked" : "";?>/>
+										<label style="display:inline;" class="col-md-8" for="f43">Pergi ke bursa / pameran kerja</label>
+									</div>
+									<div class="row" >
+										<input class="col-lg-1 " id="f44" name="f4" type="radio" value="4" class="form-control" <?php	echo set_value('f4', $f4) == 4 ? "checked" : "";?>/>
+										<label style="display:inline;" class="col-md-8" for="f44">Mencari lewat internet / iklan online / milis</label>
+									</div>
+									<div class="row" >
+										<input class="col-lg-1 " id="f45" name="f4" type="radio" value="5" class="form-control" <?php	echo set_value('f4', $f4) == 5 ? "checked" : "";?>/>
+										<label style="display:inline;" class="col-md-8" for="f45">Dihubungi oleh perusahaan</label>
+									</div>
+									<div class="row" >
+										<input class="col-lg-1" id="f46" name="f4" type="radio" value="6" class="form-control" <?php	echo set_value('f4', $f4) == 6 ? "checked" : "";?>/>
+										<label style="display:inline;" class="col-md-8" for="f46">Menguhubungi Kementrian Tenaga Kerja dan Transmigrasi</label>
+									</div>
+									<div class="row" >
+										<input class="col-lg-1" id="f47" name="f4" type="radio" value="7" class="form-control" <?php	echo set_value('f4', $f4) == 7 ? "checked" : "";?>/>
+										<label style="display:inline;" class="col-md-8" for="f47">Menghubungi agen tenaga kerja komersial / swasta</label>
+									</div>
+									<div class="row" >
+										<input class="col-lg-1 " id="f48" name="f4" type="radio" value="8" class="form-control" <?php	echo set_value('f4', $f4) == 8 ? "checked" : "";?>/>
+										<label style="display:inline;" class="col-md-8" for="f48">Memeroleh informasi dari pusat / kantor pengembangan karir fakultas / universitas</label>
+									</div>
+									<div class="row" >
+										<input class="col-lg-1 " id="f49" name="f4" type="radio" value="9" class="form-control" <?php	echo set_value('f4', $f4) == 9 ? "checked" : "";?>/>
+										<label style="display:inline;" class="col-md-8" for="f49">Menghubungi kantor kemahasiswaan / hubungan alumni</label>
+									</div>
+									<div class="row" >
+										<input class="col-lg-1 " id="f410" name="f4" type="radio" value="10" class="form-control" <?php	echo set_value('f4', $f4) == 10 ? "checked" : "";?>/>
+										<label style="display:inline;" class="col-md-8" for="f410">Membangun jejaring (network) sejak masih kuliah</label>
+									</div>
+									<div class="row" >
+										<input class="col-lg-1 " id="f411" name="f4" type="radio" value="11" class="form-control" <?php	echo set_value('f4', $f4) == 11 ? "checked" : "";?>/>
+										<label style="display:inline;" class="col-md-8" for="f411">Melalui relasi (misalnya dosen, orang tua, saudara, teman, dll)</label>
+									</div>
+									<div class="row" >
+										<input class="col-lg-1 " id="f412" name="f4" type="radio" value="12" class="form-control" <?php	echo set_value('f4', $f4) == 12 ? "checked" : "";?>/>
+										<label style="display:inline;" class="col-md-8" for="f412">Membangun bisnis sendiri</label>
+									</div>
+									<div class="row" >
+										<input class="col-lg-1 " id="f413" name="f4" type="radio" value="13" class="form-control" <?php	echo set_value('f4', $f4) == 13 ? "checked" : "";?>/>
+										<label style="display:inline;" class="col-md-8" for="f413">Melalui penempatan kerja atau magang</label>
+									</div>
+									<div class="row" >
+										<input class="col-lg-1 " id="f414" name="f4" type="radio" value="14" class="form-control" <?php	echo set_value('f4', $f4) == 14 ? "checked" : "";?>/>
+										<label style="display:inline;" class="col-md-8" for="f414">Bekerja di tempat yang sama dengan tempat kerja semasa kuliah</label>
+									</div>
+									<div class="row" >
+										<input class="col-lg-1 " id="f415" name="f4" type="radio" value="15" class="form-control" <?php	echo set_value('f4', $f4) == 15 ? "checked" : "";?>/>
+										<label style="display:inline;" class="col-md-8" for="f415">Lainnya</label>
+									</div>
+								</div><!-- f4 -->
+
+								<!-- f5 -->
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-12">
+											<label>3. Berapa bulan waktu yang dihabiskan (sebelum dan sesudah kelulusan) untuk memeroleh pekerjaan pertama?</label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<input id="f5" name="f5" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Contoh : 2 (Hanya angka saja). Ket : Tambah tanda minus (-) jika sebelum lulus Anda sudah bekerja. Beri nilai 0 (nol) jika Anda saat ini belum bekerja." type="text" placeholder=" Contoh: 2 atau -1 (Bulan Ujian TA) " class="form-control"  value="<?php echo $f5;?>"/>
+										</div>
+									</div>
+								</div><!-- f5 -->
+
+								<!-- f6 -->
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-12">
+											<label>4. Berapa perusahaan / instansi / institusi yang sudah anda lamar (lewat surat atau email) ?</label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<input id="f6" name="f6" type="text" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Contoh : 8 (Hanya angka saja)." placeholder="Contoh : 2 (hanya angka)" class="form-control" value="<?php echo $f6;?>"/>
+										</div>
+									</div>
+								</div><!-- f6 -->
+
+								<!-- f7 -->
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-12">
+											<label>5. Berapa banyak perusahaan / instansi / institusi yang merespon lamaran anda?</label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<input id="f7" name="f7" type="text" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Contoh : 5 (Hanya angka saja)." placeholder="Contoh : 2 (hanya angka)" class="form-control" value="<?php echo $f7;?>"/>
+										</div>
+									</div>
+								</div><!-- f7 -->
+
+								<!-- f7a -->
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-12">
+											<label>6. Berapa banyak perusahaan / instansi / institusi yang mengundang anda untuk wawancara?</label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+											<input id="f7a" name="f7a" type="text" data-toggle="tooltip" data-placement="bottom" data-container="body" title="Contoh : 3 (Hanya angka saja)." placeholder="Contoh : 2 (hanya angka)" class="form-control" value="<?php echo $f7a;?>"/>
+										</div>
+									</div>
+								</div><!-- f7a -->
+								<button onclick="backProsesFieldset2()">Kembali</button>
+								<button onclick="prosesFieldset2()">Selanjutnya</button>
+							</fieldset><!--fieldset2-->
+
+							<!-- fieldset3 -->
+							<fieldset class="fieldset3" id="fieldset3">
+								<!-- f8 -->
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-12">
+											<label>7. Apakah anda bekerja saat ini (termasuk kerja sambilan dan wirausaha)?</label>
+										</div>
+									</div>
+									<div class="row">
+										<input class="col-lg-1" id="f81" name="f8" type="radio" value="1" <?php	echo set_value('f8', $f8) == 1 ? "checked" : "";?>/>
+										<label class="col-md-8" for="f81">Ya</label>
+									</div>
+									<div class="row">
+										<input class="col-lg-1" id="f82" name="f8" type="radio" value="2" <?php	echo set_value('f8', $f8) == 2 ? "checked" : "";?>/>
+										<label class="col-md-8" for="f82">Tidak</label>
+									</div>
+								</div><!-- f8 -->
+								<button onclick="backProsesFieldset3()">Kembali</button>
+								<button onclick="prosesFieldset3()">Selanjutnya</button>
+							</fieldset><!-- fieldset3 -->
+
+							<!--fieldset4-->
+							<fieldset class="fieldset4" id="fieldset4">
+								<!-- f11 -->
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-12">
+											<label>10. Apa jenis perusahaan / instansi / institusi tempat anda bekerja sekarang?</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f11-1" name="f11" type="radio" value="1" <?php	echo set_value('f11', $f11) == 1 ? "checked" : "";?>/>
+											<label style="display:inline;" class="col-md-8" for="f11-1">Instansi pemerintah (termasuk BUMN)</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f11-2" name="f11" type="radio" value="2" <?php	echo set_value('f11', $f11) == 2 ? "checked" : "";?>/>
+											<label style="display:inline;" class="col-md-8" for="f11-2">Organisasi non-profit / lembaga swadaya masyarakat</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f11-3" name="f11" type="radio" value="3" <?php	echo set_value('f11', $f11) == 3 ? "checked" : "";?>/>
+											<label style="display:inline;" class="col-md-8" for="f11-3">Perusahaan swasta</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f11-4" name="f11" type="radio" value="4" <?php	echo set_value('f11', $f11) == 4 ? "checked" : "";?>/>
+											<label style="display:inline;" class="col-md-8" for="f11-4">Wiraswasta</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f11-5" name="f11" type="radio" value="5" <?php	echo set_value('f11', $f11) == 5 ? "checked" : "";?>/>
+											<label style="display:inline;" class="col-md-8" for="f11-5">Lainnya</label>
+										</div>
+									</div>
+								</div><!-- f11 -->
+
+								<!-- f12 -->
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-12">
+											<label>11. Tempat anda bekerja saat ini bergerak di bidang apa?</label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-8">
+											<select class="col-md-18" id="checkboxF12" name="checkboxF12" style="width:100%">
+												<option value="0" <?php echo ($f12 == '0')?"selected":"" ?>>--Silahkan memilih bidang pekerjaan Anda--</option>
+												<option value="1" <?php echo ($f12 == '1')?"selected":"" ?>>Pemrograman Perangkat Lunak</option>
+												<option value="2" <?php echo ($f12 == '2')?"selected":"" ?>>Jaringan Komputer</option>
+												<option value="3" <?php echo ($f12 == '3')?"selected":"" ?>>Desain Grafis, Animasi</option>
+												<option value="4" <?php echo ($f12 == '4')?"selected":"" ?>>Lain-Lain</option>
+											</select>
+										</div>
+									</div>
+								</div><!-- f12 -->
+
+								<!-- f13 -->
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-12">
+											<label>12. Berapa pendapatan anda, rata - rata tiap bulannya?</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f13-1" name="f13" type="radio" value="1" <?php	echo set_value('f13', $f13) == 1 ? "checked" : "";?>/>
+											<label class="col-md-8" for="f13-1">0 - 1.999.999</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f13-2" name="f13" type="radio" value="2" <?php	echo set_value('f13', $f13) == 2 ? "checked" : "";?>/>
+											<label class="col-md-8" for="f13-2">2.000.000 - 2.999.999</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f13-3" name="f13" type="radio" value="3" <?php	echo set_value('f13', $f13) == 3 ? "checked" : "";?>/>
+											<label class="col-md-8" for="f13-3">3.000.000 - 3.999.999</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f13-4" name="f13" type="radio" value="4" <?php	echo set_value('f13', $f13) == 4 ? "checked" : "";?>/>
+											<label class="col-md-8" for="f13-4">> 4.0000.0000</label>
+										</div>
+									</div>
+									<!-- <div class="row">
+										<div>
+											<input class="col-lg-1" id="f13-5" name="f13" type="radio" value="5" <?php	echo set_value('f13', $f13) == 5 ? "checked" : "";?>/>
+											<label class="col-md-8" for="f13-5">> 4.0000.0000</label>
+										</div>
+									</div> -->
+								</div><!-- f13 -->
+
+								<!-- f14 -->
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-12">
+											<label>13. Seberapa erat hubungan antara bidang studi dengan pekerjaan anda?</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f14-1" name="f14" type="radio" value="1" <?php	echo set_value('f14', $f14) == 1 ? "checked" : "";?>/>
+											<label class="col-md-8" for="f14-1">Sangat erat</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f14-2" name="f14" type="radio" value="2" <?php	echo set_value('f14', $f14) == 2 ? "checked" : "";?>/>
+											<label class="col-md-8" for="f14-2">Erat</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f14-3" name="f14" type="radio" value="3" <?php	echo set_value('f14', $f14) == 3 ? "checked" : "";?>/>
+											<label class="col-md-8" for="f14-3">Cukup erat</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f14-4" name="f14" type="radio" value="4" <?php	echo set_value('f14', $f14) == 4 ? "checked" : "";?>/>
+											<label class="col-md-8" for="f14-4">Kurang erat</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f14-5" name="f14" type="radio" value="5" <?php	echo set_value('f14', $f14) == 5 ? "checked" : "";?>/>
+											<label class="col-md-8" for="f14-5">Tidak sama sekali</label>
+										</div>
+									</div>
+								</div><!-- f14 -->
+
+								<!-- f15 -->
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-12">
+											<label>14. Tingkat pendidikan apa yang paling tepat / sesuai untuk pekerjaan anda saat ini?</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f15-1" name="f15" type="radio" value="1" <?php	echo set_value('f15', $f15) == 1 ? "checked" : "";?>/>
+											<label class="col-md-8" for="f15-1">Setingkat lebih tinggi</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f15-2" name="f15" type="radio" value="2" <?php	echo set_value('f15', $f15) == 2 ? "checked" : "";?>/>
+											<label class="col-md-8" for="f15-2">Tingkat yang sama</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f15-3" name="f15" type="radio" value="3" <?php	echo set_value('f15', $f15) == 3 ? "checked" : "";?>/>
+											<label class="col-md-8" for="f15-3">Setingkat lebih rendah</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f15-4" name="f15" type="radio" value="4" <?php	echo set_value('f15', $f15) == 4 ? "checked" : "";?>/>
+											<label class="col-md-8" for="f15-4">Tidak perlu pendidikan tinggi</label>
+										</div>
+									</div>
+								</div><!-- f15 -->
+
+								<!-- f16 -->
+								<div class="form-group">
+									<div class="row">
+											<div class="col-md-12">
+											<label>15. Jika menurut anda pekerjaan anda saat ini tidak sesuai dengan pendidikan anda, mengapa anda mengambilnya?</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f161" name="f16" type="radio" value="1" <?php	echo set_value('f16', $f16) == 1 ? "checked" : "";?>/>
+											<label style="display:inline;" class="col-md-8" for="f16-1">Pertanyaan tidak sesuai, pekerjaan saya sekarang sudah sesuai dengan pendidikan</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f16-2" name="f16" type="radio" value="2" <?php	echo set_value('f16', $f16) == 2 ? "checked" : "";?>/>
+											<label style="display:inline;" class="col-md-8" for="f16-2">Saya belum mendapatkan pekerjaan yang lebih sesuai</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f16-3" name="f16" type="radio" value="3" <?php	echo set_value('f16', $f16) == 3 ? "checked" : "";?>/>
+											<label style="display:inline;" class="col-md-8" for="f16-3">Di pekerjaan ini saya memeroleh prospek karir yang baik</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f16-4" name="f16" type="radio" value="4" <?php	echo set_value('f16', $f16) == 4 ? "checked" : "";?>/>
+											<label style="display:inline;" class="col-md-8" for="f16-4">Saya lebih suka bekerja di area pekerjaan yang tidak ada hubungannya dengan pendidikan saya</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f16-5" name="f16" type="radio" value="5" <?php	echo set_value('f16', $f16) == 5 ? "checked" : "";?>/>
+											<label style="display:inline;" class="col-md-8" for="f16-5">Saya dipromosikan ke posisi yang kurang berhubungan dengan pendidikan saya dibanding posisi sebelumnya</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f16-6" name="f16" type="radio" value="6" <?php	echo set_value('f16', $f16) == 6 ? "checked" : "";?>/>
+											<label style="display:inline;" class="col-md-8" for="f16-6">Saya dapat memeroleh pendapatan yang lebih tinggi di pekerjaan ini</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f16-7" name="f16" type="radio" value="7" <?php	echo set_value('f16', $f16) == 7 ? "checked" : "";?>/>
+											<label style="display:inline;" class="col-md-8" for="f16-7">Pekerjaan saya saat ini lebih aman / terjamin / secure</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f16-8" name="f16" type="radio" value="8" <?php	echo set_value('f16', $f16) == 8 ? "checked" : "";?>/>
+											<label style="display:inline;" class="col-md-8" for="f16-8">Pekerjaan saya saat ini lebih menarik</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f16-9" name="f16" type="radio" value="9" <?php	echo set_value('f16', $f16) == 9 ? "checked" : "";?>/>
+											<label style="display:inline;" class="col-md-8" for="f16-9">Pekerjaan saya saat ini lebih memungkinkan saya mengambil pekerjaan tambahan / jadwal yang fleksibel</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f16-10" name="f16" type="radio" value="10" <?php	echo set_value('f16', $f16) == 10 ? "checked" : "";?>/>
+											<label style="display:inline;" class="col-md-8" for="f16-10">Pekerjaan saya saat ini lokasinya lebih dekat dari rumah saya</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f16-11" name="f16" type="radio" value="11" <?php	echo set_value('f16', $f16) == 11 ? "checked" : "";?>/>
+											<label style="display:inline;" class="col-md-8" for="f16-11">Pekerjaan saya saat ini dapat lebih menjamin kebutuhan keluarga saya</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f16-12" name="f16" type="radio" value="12" <?php	echo set_value('f16', $f16) == 12 ? "checked" : "";?>/>
+											<label style="display:inline;" class="col-md-8" for="f16-12">Pada awal meniti karir ini, saya harus menerima pekerjaan yang tidak berhubungan dengan pendidikan saya</label>
+										</div>
+									</div>
+									<div class="row">
+										<div>
+											<input class="col-lg-1" id="f16-13" name="f16" type="radio" value="13" <?php	echo set_value('f16', $f16) == 13 ? "checked" : "";?>/>
+											<label style="display:inline;" class="col-md-8" for="f16-13">Lainnya</label>
+										</div>
+									</div>
+								</div><!-- f16 -->
+								<button onclick="backProsesFieldset4()">Kembali</button>
+								<button onclick="prosesFieldset4()">Selanjutnya</button>
+							</fieldset><!--fieldset4-->
+
+							<!-- fieldset5 -->
+							<fieldset class="fieldset5" id="fieldset5">
+								<!-- f9 -->
+								<div class="form-group">
+									<div class="row">
+										<div class="col-lg-12">
+											<label for="">8. Bagaimana anda menggambarkan situasi anda saat ini?</label>
+										</div>
+									</div>
+									<div class="row">
+											<input class="col-lg-1" id="f91" name="f9" type="radio" value="1" <?php	echo set_value('f9', $f9) == 1 ? "checked" : "";?> class="form-control"/>
+											<label style="display:inline;" class="col-md-8" for="f91">Saya masih belajar / melakukan kuliah profesi atau pascasarjana.</label>
+									</div>
+									<div class="row">
+											<input class="col-lg-1" id="f92" name="f9" type="radio" value="2" <?php	echo set_value('f9', $f9) == 2 ? "checked" : "";?> class="form-control"/>
+											<label style="display:inline;" class="col-md-8" for="f92">Saya menikah.</label>
+									</div>
+									<div class="row">
+											<input class="col-lg-1" id="f93" name="f9" type="radio" value="3" <?php	echo set_value('f9', $f9) == 3 ? "checked" : "";?> class="form-control"/>
+											<label style="display:inline;" class="col-md-8" for="f93">Saya sibuk dengan keluarga dan anak-anak.</label>
+									</div>
+									<div class="row">
+											<input class="col-lg-1" id="f94" name="f9" type="radio" value="4" <?php	echo set_value('f9', $f9) == 4 ? "checked" : "";?> class="form-control"/>
+											<label style="display:inline;" class="col-md-8" for="f94">Saya sekarang sedang mencari pekerjaan.</label>
+									</div>
+									<div class="row">
+											<input class="col-lg-1" id="f95" name="f9" type="radio" value="5" <?php	echo set_value('f9', $f9) == 5 ? "checked" : "";?> class="form-control"/>
+											<label class="col-md-8" for="f95">Lainnya.</label>
+									</div>
+								</div> <!-- f9 -->
+
+								<!-- f10 -->
+								<div class="form-group">
+									<div class="row">
+										<div class="col">
+											<label for="">9. Apakah anda aktif mencari pekerjaan dalam 4 minggu terakhir?</label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col">
+											<input class="col-lg-1" id="f101" name="f10" type="radio" value="1" <?php	echo set_value('f10', $f10) == 1 ? "checked" : "";?>>
+											<label class="col-md-8" for="f101">Tidak.</label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col">
+											<input class="col-lg-1" id="f102" name="f10" type="radio" value="2" <?php	echo set_value('f10', $f10) == 2 ? "checked" : "";?>>
+											<label style="display:inline;" class="col-md-8" for="f102">Tidak, tapi saya sedang menunggu hasil lamaran kerja.</label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col">
+											<input class="col-lg-1" id="f103" name="f10" type="radio" value="3" <?php	echo set_value('f10', $f10) == 3 ? "checked" : "";?>>
+											<label style="display:inline;" class="col-md-8" for="f103">Ya, saya mulai akan mulai bekerja dalam 2 minggu ke depan.</label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col">
+											<input class="col-lg-1" id="f104" name="f10" type="radio" value="4" <?php	echo set_value('f10', $f10) == 4 ? "checked" : "";?>>
+											<label style="display:inline;" class="col-md-8" for="f104">Ya, tapi saya belum pasti akan bekerja dalam 2 minggu ke depan.</label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col">
+											<input class="col-lg-1" id="f105" name="f10" type="radio" value="5" <?php	echo set_value('f10', $f10) == 5 ? "checked" : "";?>>
+											<label class="col-md-8" for="f105">Lainnya.</label>
+										</div>
+									</div>
+								</div><!-- f10 -->
+								<button onclick="backProsesFieldset5()">Kembali</button>
+								<button onclick="prosesFieldset5()">Selanjutnya</button>
+							</fieldset><!--fieldset5-->
+
+							<!-- fieldset6a-->
+							<fieldset class="fieldset6a table-responsive" id="fieldset6a">
+								<!-- f17a1 -->
+								<!-- <form method="post" action="#"> -->
+									<table class="table" border="2">
+										<tr>
+											<td colspan="7"><b>Evaluasi Penilaian : Kompetensi yang Anda Kuasai (Alumni) (1/2)</b></td>
+										</tr>
+										<tr align="center">
+											<td><b>No.<b></td>
+											<td><b>Kompetensi</b></td>
+											<td><b>Sangat Rendah</b></td>
+											<td><b>Rendah</b></td>
+											<td><b>Cukup</b></td>
+											<td><b>Tinggi</b></td>
+											<td><b>Sangat Tinggi</b></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-1 -->
+											<td>1.</td>
+											<td id="pinggir">Pengetahuan di bidang / disiplin ilmu anda</td>
+											<td><input type="radio" id="f17a1-1" name="f17a1" value="1" <?php	echo set_value('f17a1', $f17a1) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a1-2" name="f17a1" value="2" <?php	echo set_value('f17a1', $f17a1) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a1-3" name="f17a1" value="3" <?php	echo set_value('f17a1', $f17a1) == 3 ? "checked" : "";?>/></td>
+								 			<td><input type="radio" id="f17a1-4" name="f17a1" value="4" <?php	echo set_value('f17a1', $f17a1) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a1-5" name="f17a1" value="5" <?php	echo set_value('f17a1', $f17a1) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-2 -->
+											<td>2.</td>
+											<td id="pinggir">Pengetahuan di luar bidang / disiplin ilmu anda</td>
+											<td><input type="radio" id="f17a2-1" name="f17a2" value="1" <?php	echo set_value('f17a2', $f17a2) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a2-2" name="f17a2" value="2" <?php	echo set_value('f17a2', $f17a2) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a2-3" name="f17a2" value="3" <?php	echo set_value('f17a2', $f17a2) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a2-4" name="f17a2" value="4" <?php	echo set_value('f17a2', $f17a2) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a2-5" name="f17a2" value="5" <?php	echo set_value('f17a2', $f17a2) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-3 -->
+											<td>3.</td>
+											<td id="pinggir">Pengetahuan umum</td>
+											<td><input type="radio" id="f17a3-1" name="f17a3" value="1" <?php	echo set_value('f17a3', $f17a3) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a3-2" name="f17a3" value="2" <?php	echo set_value('f17a3', $f17a3) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a3-3" name="f17a3" value="3" <?php	echo set_value('f17a3', $f17a3) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a3-4" name="f17a3" value="4" <?php	echo set_value('f17a3', $f17a3) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a3-5" name="f17a3" value="5" <?php	echo set_value('f17a3', $f17a3) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-4 -->
+											<td>4.</td>
+											<td id="pinggir">Bahasa inggris</td>
+											<td><input type="radio" id="f17a4-1" name="f17a4" value="1" <?php	echo set_value('f17a4', $f17a4) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a4-2" name="f17a4" value="2" <?php	echo set_value('f17a4', $f17a4) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a4-3" name="f17a4" value="3" <?php	echo set_value('f17a4', $f17a4) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a4-4" name="f17a4" value="4" <?php	echo set_value('f17a4', $f17a4) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a4-5" name="f17a4" value="5" <?php	echo set_value('f17a4', $f17a4) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-5 -->
+											<td>5.</td>
+											<td id="pinggir">Keterampilan internet</td>
+											<td><input type="radio" id="f17a5-1" name="f17a5" value="1" <?php	echo set_value('f17a5', $f17a5) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a5-2" name="f17a5" value="2" <?php	echo set_value('f17a5', $f17a5) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a5-3" name="f17a5" value="3" <?php	echo set_value('f17a5', $f17a5) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a5-4" name="f17a5" value="4" <?php	echo set_value('f17a5', $f17a5) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a5-5" name="f17a5" value="5" <?php	echo set_value('f17a5', $f17a5) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-6 -->
+											<td>6.</td>
+											<td id="pinggir">Keterampilan komputer</td>
+											<td><input type="radio" id="f17a6-1" name="f17a6" value="1" <?php	echo set_value('f17a6', $f17a6) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a6-2" name="f17a6" value="2" <?php	echo set_value('f17a6', $f17a6) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a6-3" name="f17a6" value="3" <?php	echo set_value('f17a6', $f17a6) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a6-4" name="f17a6" value="4" <?php	echo set_value('f17a6', $f17a6) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a6-5" name="f17a6" value="5" <?php	echo set_value('f17a6', $f17a6) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-7 -->
+											<td>7.</td>
+											<td id="pinggir">Berpikir kritis</td>
+											<td><input type="radio" id="f17a7-1" name="f17a7" value="1" <?php	echo set_value('f17a7', $f17a7) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a7-2" name="f17a7" value="2" <?php	echo set_value('f17a7', $f17a7) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a7-3" name="f17a7" value="3" <?php	echo set_value('f17a7', $f17a7) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a7-4" name="f17a7" value="4" <?php	echo set_value('f17a7', $f17a7) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a7-5" name="f17a7" value="5" <?php	echo set_value('f17a7', $f17a7) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+												<!-- f17a-8 -->
+											<td>8.</td>
+											<td id="pinggir">Keterampilan riset</td>
+											<td><input type="radio" id="f17a8-1" name="f17a8" value="1" <?php	echo set_value('f17a8', $f17a8) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a8-2" name="f17a8" value="2" <?php	echo set_value('f17a8', $f17a8) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a8-3" name="f17a8" value="3" <?php	echo set_value('f17a8', $f17a8) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a8-4" name="f17a8" value="4" <?php	echo set_value('f17a8', $f17a8) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a8-5" name="f17a8" value="5" <?php	echo set_value('f17a8', $f17a8) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-9 -->
+											<td>9.</td>
+											<td id="pinggir">Kemampuan belajar</td>
+											<td><input type="radio" id="f17a9-1" name="f17a9" value="1" <?php	echo set_value('f17a9', $f17a9) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a9-2" name="f17a9" value="2" <?php	echo set_value('f17a9', $f17a9) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a9-3" name="f17a9" value="3" <?php	echo set_value('f17a9', $f17a9) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a9-4" name="f17a9" value="4" <?php	echo set_value('f17a9', $f17a9) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a9-5" name="f17a9" value="5" <?php	echo set_value('f17a9', $f17a9) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-10 -->
+											<td>10.</td>
+											<td id="pinggir">Kemampuan berkomunikasi</td>
+											<td><input type="radio" id="f17a10-1" name="f17a10" value="1" <?php	echo set_value('f17a10', $f17a10) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a10-2" name="f17a10" value="2" <?php	echo set_value('f17a10', $f17a10) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a10-3" name="f17a10" value="3" <?php	echo set_value('f17a10', $f17a10) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a10-4" name="f17a10" value="4" <?php	echo set_value('f17a10', $f17a10) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a10-5" name="f17a10" value="5" <?php	echo set_value('f17a10', $f17a10) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-11 -->
+											<td>11.</td>
+											<td id="pinggir">Bekerja di bawah tekanan</td>
+											<td><input type="radio" id="f17a11-1" name="f17a11" value="1" <?php	echo set_value('f17a11', $f17a11) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a11-2" name="f17a11" value="2" <?php	echo set_value('f17a11', $f17a11) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a11-3" name="f17a11" value="3" <?php	echo set_value('f17a11', $f17a11) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a11-4" name="f17a11" value="4" <?php	echo set_value('f17a11', $f17a11) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a11-5" name="f17a11" value="5" <?php	echo set_value('f17a11', $f17a11) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-12 -->
+											<td>12.</td>
+											<td id="pinggir">Manajemen waktu</td>
+											<td><input type="radio" id="f17a12-2" name="f17a12" value="1" <?php	echo set_value('f17a12', $f17a12) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a12-2" name="f17a12" value="2" <?php	echo set_value('f17a12', $f17a12) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a12-3" name="f17a12" value="3" <?php	echo set_value('f17a12', $f17a12) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a12-4" name="f17a12" value="4" <?php	echo set_value('f17a12', $f17a12) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a12-5" name="f17a12" value="5" <?php	echo set_value('f17a12', $f17a12) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-13 -->
+											<td>13.</td>
+											<td id="pinggir">Bekerja secara mandiri</td>
+											<td><input type="radio" id="f17a13-1" name="f17a13" value="1" <?php	echo set_value('f17a13', $f17a13) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a13-2" name="f17a13" value="2" <?php	echo set_value('f17a13', $f17a13) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a13-3" name="f17a13" value="3" <?php	echo set_value('f17a13', $f17a13) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a13-4" name="f17a13" value="4" <?php	echo set_value('f17a13', $f17a13) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a13-5" name="f17a13" value="5" <?php	echo set_value('f17a13', $f17a13) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-14 -->
+											<td>14.</td>
+											<td id="pinggir">Bekerja dalam tim / kerjasama dengan orang lain</td>
+											<td><input type="radio" id="f17a14-1" name="f17a14" value="1" <?php	echo set_value('f17a14', $f17a14) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a14-2" name="f17a14" value="2" <?php	echo set_value('f17a14', $f17a14) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a14-3" name="f17a14" value="3" <?php	echo set_value('f17a14', $f17a14) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a14-4" name="f17a14" value="4" <?php	echo set_value('f17a14', $f17a14) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a14-5" name="f17a14" value="5" <?php	echo set_value('f17a14', $f17a14) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-15 -->
+											<td>15.</td>
+											<td id="pinggir">Kemampuan memecahkan masalah</td>
+											<td><input type="radio" id="f17a15-1" name="f17a15" value="1" <?php	echo set_value('f17a15', $f17a15) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a15-2" name="f17a15" value="2" <?php	echo set_value('f17a15', $f17a15) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a15-3" name="f17a15" value="3" <?php	echo set_value('f17a15', $f17a15) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a15-4" name="f17a15" value="4" <?php	echo set_value('f17a15', $f17a15) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a15-5" name="f17a15" value="5" <?php	echo set_value('f17a15', $f17a15) == 5 ? "checked" : "";?>/></td>
+										</tr>
+									</table>
+									<button onclick="backProsesFieldset6a()">Kembali</button>
+									<button onclick="prosesFieldset6a()">Selanjutnya</button>
+									<!-- </form>f17a1-->
+							</fieldset><!--fieldset6a-->
+
+							<!-- fieldset6b -->
+							<fieldset class="fieldset6b table-responsive" id="fieldset6b">
+								<!-- f17a2-->
+								<!-- <form method="post" action="#"> -->
+									<table class="table" border="2">
+										<tr>
+											<td colspan="7"><b>Evaluasi Penilaian : Kompetensi yang Anda Kuasai (Alumni) (2/2)</b></td>
+										</tr>
+										<tr align="center" style="font-weight:bold">
+											<td>No.</td>
+											<td>Kompetensi</td>
+											<td>Sangat Rendah</td>
+											<td>Rendah</td>
+											<td>Cukup</td>
+											<td>Tinggi</td>
+											<td>Sangat Tinggi</td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-16 -->
+											<td>16.</td>
+											<td id="pinggir">Negosiasi</td>
+											<td><input type="radio" id="f17a16-1" name="f17a16" value="1" <?php	echo set_value('f17a16', $f17a16) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a16-2" name="f17a16" value="2" <?php	echo set_value('f17a16', $f17a16) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a16-3" name="f17a16" value="3" <?php	echo set_value('f17a16', $f17a16) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a16-4" name="f17a16" value="4" <?php	echo set_value('f17a16', $f17a16) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a16-5" name="f17a16" value="5" <?php	echo set_value('f17a16', $f17a16) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-17 -->
+											<td>17.</td>
+											<td id="pinggir">Kemampuan analisis</td>
+											<td><input type="radio" id="f17a17-1" name="f17a17" value="1" <?php	echo set_value('f17a17', $f17a17) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a17-2" name="f17a17" value="2" <?php	echo set_value('f17a17', $f17a17) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a17-3" name="f17a17" value="3" <?php	echo set_value('f17a17', $f17a17) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a17-4" name="f17a17" value="4" <?php	echo set_value('f17a17', $f17a17) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a17-5" name="f17a17" value="5" <?php	echo set_value('f17a17', $f17a17) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-18 -->
+											<td>18.</td>
+											<td id="pinggir">Toleransi</td>
+											<td><input type="radio" id="f17a18-1" name="f17a18" value="1" <?php	echo set_value('f17a18', $f17a18) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a18-2" name="f17a18" value="2" <?php	echo set_value('f17a18', $f17a18) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a18-3" name="f17a18" value="3" <?php	echo set_value('f17a18', $f17a18) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a18-4" name="f17a18" value="4" <?php	echo set_value('f17a18', $f17a18) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a18-5" name="f17a18" value="5" <?php	echo set_value('f17a18', $f17a18) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-19 -->
+											<td>19.</td>
+											<td id="pinggir">Kemampuan adaptasi</td>
+											<td><input type="radio" id="f17a19-1" name="f17a19" value="1" <?php	echo set_value('f17a19', $f17a19) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a19-2" name="f17a19" value="2" <?php	echo set_value('f17a19', $f17a19) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a19-3" name="f17a19" value="3" <?php	echo set_value('f17a19', $f17a19) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a19-4" name="f17a19" value="4" <?php	echo set_value('f17a19', $f17a19) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a19-5" name="f17a19" value="5" <?php	echo set_value('f17a19', $f17a19) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-20 -->
+											<td>20.</td>
+											<td id="pinggir">Loyalitas</td>
+											<td><input type="radio" id="f17a20-1" name="f17a20" value="1" <?php	echo set_value('f17a20', $f17a20) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a20-2" name="f17a20" value="2" <?php	echo set_value('f17a20', $f17a20) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a20-3" name="f17a20" value="3" <?php	echo set_value('f17a20', $f17a20) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a20-4" name="f17a20" value="4" <?php	echo set_value('f17a20', $f17a20) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a20-5" name="f17a20" value="5" <?php	echo set_value('f17a20', $f17a20) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-21 -->
+											<td>21.</td>
+											<td id="pinggir">Integritas</td>
+											<td><input type="radio" id="f17a21-1" name="f17a21" value="1" <?php	echo set_value('f17a21', $f17a21) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a21-2" name="f17a21" value="2" <?php	echo set_value('f17a21', $f17a21) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a21-3" name="f17a21" value="3" <?php	echo set_value('f17a21', $f17a21) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a21-4" name="f17a21" value="4" <?php	echo set_value('f17a21', $f17a21) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a21-5" name="f17a21" value="5" <?php	echo set_value('f17a21', $f17a21) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-22 -->
+											<td>22.</td>
+											<td id="pinggir">Bekerja dengan orang berbeda budaya maupun latar belakang</td>
+											<td><input type="radio" id="f17a22-1" name="f17a22" value="1" <?php	echo set_value('f17a22', $f17a22) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a22-2" name="f17a22" value="2" <?php	echo set_value('f17a22', $f17a22) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a22-3" name="f17a22" value="3" <?php	echo set_value('f17a22', $f17a22) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a22-4" name="f17a22" value="4" <?php	echo set_value('f17a22', $f17a22) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a22-5" name="f17a22" value="5" <?php	echo set_value('f17a22', $f17a22) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-23 -->
+											<td>23.</td>
+											<td id="pinggir">Kepemimpinan</td>
+											<td><input type="radio" id="f17a23-1" name="f17a23" value="1" <?php	echo set_value('f17a23', $f17a23) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a23-2" name="f17a23" value="2" <?php	echo set_value('f17a23', $f17a23) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a23-3" name="f17a23" value="3" <?php	echo set_value('f17a23', $f17a23) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a23-4" name="f17a23" value="4" <?php	echo set_value('f17a23', $f17a23) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a23-5" name="f17a23" value="5" <?php	echo set_value('f17a23', $f17a23) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-24 -->
+											<td>24.</td>
+											<td id="pinggir">Kemampuan dalam memegang tanggung jawab</td>
+											<td><input type="radio" id="f17a24-1" name="f17a24" value="1" <?php	echo set_value('f17a24', $f17a24) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a24-2" name="f17a24" value="2" <?php	echo set_value('f17a24', $f17a24) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a24-3" name="f17a24" value="3" <?php	echo set_value('f17a24', $f17a24) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a24-4" name="f17a24" value="4" <?php	echo set_value('f17a24', $f17a24) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a24-5" name="f17a24" value="5" <?php	echo set_value('f17a24', $f17a24) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-25 -->
+											<td>25.</td>
+											<td id="pinggir">Inisiatif</td>
+											<td><input type="radio" id="f17a25-1" name="f17a25" value="1" <?php	echo set_value('f17a25', $f17a25) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a25-2" name="f17a25" value="2" <?php	echo set_value('f17a25', $f17a25) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a25-3" name="f17a25" value="3" <?php	echo set_value('f17a25', $f17a25) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a25-4" name="f17a25" value="4" <?php	echo set_value('f17a25', $f17a25) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a25-5" name="f17a25" value="5" <?php	echo set_value('f17a25', $f17a25) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-26 -->
+											<td>26.</td>
+											<td id="pinggir">Manajemen proyek / program</td>
+											<td><input type="radio" id="f17a26-1" name="f17a26" value="1" <?php	echo set_value('f17a26', $f17a26) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a26-2" name="f17a26" value="2" <?php	echo set_value('f17a26', $f17a26) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a26-3" name="f17a26" value="3" <?php	echo set_value('f17a26', $f17a26) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a26-4" name="f17a26" value="4" <?php	echo set_value('f17a26', $f17a26) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a26-5" name="f17a26" value="5" <?php	echo set_value('f17a26', $f17a26) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-27 -->
+											<td>27.</td>
+											<td id="pinggir">Kemampuan memresentasikan ide / produk / laporan</td>
+											<td><input type="radio" id="f17a27-2" name="f17a27" value="1" <?php	echo set_value('f17a27', $f17a27) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a27-2" name="f17a27" value="2" <?php	echo set_value('f17a27', $f17a27) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a27-3" name="f17a27" value="3" <?php	echo set_value('f17a27', $f17a27) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a27-4" name="f17a27" value="4" <?php	echo set_value('f17a27', $f17a27) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a27-5" name="f17a27" value="5" <?php	echo set_value('f17a27', $f17a27) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-28 -->
+											<td>28.</td>
+											<td id="pinggir">Kemampuan dalam menulis laporan, memo, dan dokumen</td>
+											<td><input type="radio" id="f17a28-1" name="f17a28" value="1" <?php	echo set_value('f17a28', $f17a28) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a28-2" name="f17a28" value="2" <?php	echo set_value('f17a28', $f17a28) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a28-3" name="f17a28" value="3" <?php	echo set_value('f17a28', $f17a28) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a28-4" name="f17a28" value="4" <?php	echo set_value('f17a28', $f17a28) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a28-5" name="f17a28" value="5" <?php	echo set_value('f17a28', $f17a28) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17a-29 -->
+											<td>29.</td>
+											<td id="pinggir">Kemampuan untuk terus belajar sepanjang hayat</td>
+											<td><input type="radio" id="f17a29-1" name="f17a29" value="1" <?php	echo set_value('f17a29', $f17a29) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a29-2" name="f17a29" value="2" <?php	echo set_value('f17a29', $f17a29) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a29-3" name="f17a29" value="3" <?php	echo set_value('f17a29', $f17a29) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a29-4" name="f17a29" value="4" <?php	echo set_value('f17a29', $f17a29) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17a29-5" name="f17a29" value="5" <?php	echo set_value('f17a29', $f17a29) == 5 ? "checked" : "";?>/></td>
+										</tr>
+									</table>
+									<button onclick="backProsesFieldset6b()">Kembali</button>
+									<button onclick="prosesFieldset6b()">Selanjutnya</button>
+								<!-- </form>f17a2 -->
+							</fieldset><!--fieldset6b-->
+
+							<!-- fieldset7a -->
+							<fieldset class="fieldset7a table-responsive" id="fieldset7a">
+								<!-- f17b1 -->
+								<!-- <form method="post" action="#"> -->
+									<table class="table" border="2">
+										<tr>
+											<td colspan="7"><b>Evaluasi Penilaian : Kontribusi Jurusan TIF UMM untuk pengembangan kemampuan Alumni (Prodi) (1/2)</b></td>
+										</tr>
+										<tr align="center" style="font-weight:bold">
+											<td>No.</td>
+											<td>Kompetensi</td>
+											<td>Sangat Rendah</td>
+											<td>Rendah</td>
+											<td>Cukup</td>
+											<td>Tinggi</td>
+											<td>Sangat Tinggi</td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-1 -->
+											<td>1.</td>
+											<td id="pinggir">Pengetahuan di bidang / disiplin ilmu anda</td>
+											<td><input type="radio" id="f17b1-1" name="f17b1" value="1" <?php	echo set_value('f17b1', $f17b1) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b1-2" name="f17b1" value="2" <?php	echo set_value('f17b1', $f17b1) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b1-3" name="f17b1" value="3" <?php	echo set_value('f17b1', $f17b1) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b1-4" name="f17b1" value="4" <?php	echo set_value('f17b1', $f17b1) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b1-5" name="f17b1" value="5" <?php	echo set_value('f17b1', $f17b1) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-2 -->
+											<td>2.</td>
+											<td id="pinggir">Pengetahuan di luar bidang / disiplin ilmu anda</td>
+											<td><input type="radio" id="f17b2-1" name="f17b2" value="1" <?php	echo set_value('f17b2', $f17b2) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b2-2" name="f17b2" value="2" <?php	echo set_value('f17b2', $f17b2) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b2-3" name="f17b2" value="3" <?php	echo set_value('f17b2', $f17b2) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b2-4" name="f17b2" value="4" <?php	echo set_value('f17b2', $f17b2) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b2-5" name="f17b2" value="5" <?php	echo set_value('f17b2', $f17b2) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-3 -->
+											<td>3.</td>
+											<td id="pinggir">Pengetahuan umum</td>
+											<td><input type="radio" id="f17b3-1" name="f17b3" value="1" <?php	echo set_value('f17b3', $f17b3) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b3-2" name="f17b3" value="2" <?php	echo set_value('f17b3', $f17b3) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b3-3" name="f17b3" value="3" <?php	echo set_value('f17b3', $f17b3) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b3-4" name="f17b3" value="4" <?php	echo set_value('f17b3', $f17b3) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b3-5" name="f17b3" value="5" <?php	echo set_value('f17b3', $f17b3) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-4 -->
+											<td>4.</td>
+											<td id="pinggir">Bahasa inggris</td>
+											<td><input type="radio" id="f17b4-1" name="f17b4" value="1" <?php	echo set_value('f17b4', $f17b4) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b4-2" name="f17b4" value="2" <?php	echo set_value('f17b4', $f17b4) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b4-3" name="f17b4" value="3" <?php	echo set_value('f17b4', $f17b4) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b4-4" name="f17b4" value="4" <?php	echo set_value('f17b4', $f17b4) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b4-5" name="f17b4" value="5" <?php	echo set_value('f17b4', $f17b4) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-5 -->
+											<td>5.</td>
+											<td id="pinggir">Keterampilan internet</td>
+											<td><input type="radio" id="f17b5-1" name="f17b5" value="1" <?php	echo set_value('f17b5', $f17b5) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b5-2" name="f17b5" value="2" <?php	echo set_value('f17b5', $f17b5) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b5-3" name="f17b5" value="3" <?php	echo set_value('f17b5', $f17b5) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b5-4" name="f17b5" value="4" <?php	echo set_value('f17b5', $f17b5) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b5-5" name="f17b5" value="5" <?php	echo set_value('f17b5', $f17b5) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-6 -->
+											<td>6.</td>
+											<td id="pinggir">Keterampilan komputer</td>
+											<td><input type="radio" id="f17b6-1" name="f17b6" value="1" <?php	echo set_value('f17b6', $f17b6) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b6-2" name="f17b6" value="2" <?php	echo set_value('f17b6', $f17b6) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b6-3" name="f17b6" value="3" <?php	echo set_value('f17b6', $f17b6) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b6-4" name="f17b6" value="4" <?php	echo set_value('f17b6', $f17b6) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b6-5" name="f17b6" value="5" <?php	echo set_value('f17b6', $f17b6) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-7 -->
+											<td>7.</td>
+											<td id="pinggir">Berpikir kritis</td>
+											<td><input type="radio" id="f17b7-1" name="f17b7" value="1" <?php	echo set_value('f17b7', $f17b7) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b7-2" name="f17b7" value="2" <?php	echo set_value('f17b7', $f17b7) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b7-3" name="f17b7" value="3" <?php	echo set_value('f17b7', $f17b7) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b7-4" name="f17b7" value="4" <?php	echo set_value('f17b7', $f17b7) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b7-5" name="f17b7" value="5" <?php	echo set_value('f17b7', $f17b7) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-8 -->
+											<td>8.</td>
+											<td id="pinggir">Keterampilan riset</td>
+											<td><input type="radio" id="f17b8-1" name="f17b8" value="1" <?php	echo set_value('f17b8', $f17b8) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b8-2" name="f17b8" value="2" <?php	echo set_value('f17b8', $f17b8) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b8-3" name="f17b8" value="3" <?php	echo set_value('f17b8', $f17b8) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b8-4" name="f17b8" value="4" <?php	echo set_value('f17b8', $f17b8) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b8-5" name="f17b8" value="5" <?php	echo set_value('f17b8', $f17b8) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-9 -->
+											<td>9.</td>
+											<td id="pinggir">Kemampuan belajar</td>
+											<td><input type="radio" id="f17b9-1" name="f17b9" value="1" <?php	echo set_value('f17b9', $f17b9) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b9-2" name="f17b9" value="2" <?php	echo set_value('f17b9', $f17b9) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b9-3" name="f17b9" value="3" <?php	echo set_value('f17b9', $f17b9) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b9-4" name="f17b9" value="4" <?php	echo set_value('f17b9', $f17b9) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b9-5" name="f17b9" value="5" <?php	echo set_value('f17b9', $f17b9) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-10 -->
+											<td>10.</td>
+											<td id="pinggir">Kemampuan berkomunikasi</td>
+											<td><input type="radio" id="f17b10-1" name="f17b10" value="1" <?php	echo set_value('f17b10', $f17b10) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b10-2" name="f17b10" value="2" <?php	echo set_value('f17b10', $f17b10) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b10-3" name="f17b10" value="3" <?php	echo set_value('f17b10', $f17b10) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b10-4" name="f17b10" value="4" <?php	echo set_value('f17b10', $f17b10) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b10-5" name="f17b10" value="5" <?php	echo set_value('f17b10', $f17b10) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-11 -->
+											<td>11.</td>
+											<td id="pinggir">Bekerja di bawah tekanan</td>
+											<td><input type="radio" id="f17b11-1" name="f17b11" value="1" <?php	echo set_value('f17b11', $f17b11) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b11-2" name="f17b11" value="2" <?php	echo set_value('f17b11', $f17b11) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b11-3" name="f17b11" value="3" <?php	echo set_value('f17b11', $f17b11) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b11-4" name="f17b11" value="4" <?php	echo set_value('f17b11', $f17b11) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b11-5" name="f17b11" value="5" <?php	echo set_value('f17b11', $f17b11) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-12 -->
+											<td>12.</td>
+											<td id="pinggir">Manajemen waktu</td>
+											<td><input type="radio" id="f17b12-2" name="f17b12" value="1" <?php	echo set_value('f17b12', $f17b12) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b12-2" name="f17b12" value="2" <?php	echo set_value('f17b12', $f17b12) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b12-3" name="f17b12" value="3" <?php	echo set_value('f17b12', $f17b12) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b12-4" name="f17b12" value="4" <?php	echo set_value('f17b12', $f17b12) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b12-5" name="f17b12" value="5" <?php	echo set_value('f17b12', $f17b12) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-13 -->
+											<td>13.</td>
+											<td id="pinggir">Bekerja secara mandiri</td>
+											<td><input type="radio" id="f17b13-1" name="f17b13" value="1" <?php	echo set_value('f17b1', $f17b13) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b13-2" name="f17b13" value="2" <?php	echo set_value('f17b1', $f17b13) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b13-3" name="f17b13" value="3" <?php	echo set_value('f17b1', $f17b13) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b13-4" name="f17b13" value="4" <?php	echo set_value('f17b1', $f17b13) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b13-5" name="f17b13" value="5" <?php	echo set_value('f17b1', $f17b13) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-14 -->
+											<td>14.</td>
+											<td id="pinggir">Bekerja dalam tim / kerjasama dengan orang lain</td>
+											<td><input type="radio" id="f17b14-1" name="f17b14" value="1" <?php	echo set_value('f17b14', $f17b14) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b14-2" name="f17b14" value="2" <?php	echo set_value('f17b14', $f17b14) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b14-3" name="f17b14" value="3" <?php	echo set_value('f17b14', $f17b14) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b14-4" name="f17b14" value="4" <?php	echo set_value('f17b14', $f17b14) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b14-5" name="f17b14" value="5" <?php	echo set_value('f17b14', $f17b14) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-15 -->
+											<td>15.</td>
+											<td id="pinggir">Kemampuan memecahkan masalah</td>
+											<td><input type="radio" id="f17b15-1" name="f17b15" value="1" <?php	echo set_value('f17b15', $f17b15) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b15-2" name="f17b15" value="2" <?php	echo set_value('f17b15', $f17b15) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b15-3" name="f17b15" value="3" <?php	echo set_value('f17b15', $f17b15) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b15-4" name="f17b15" value="4" <?php	echo set_value('f17b15', $f17b15) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b15-5" name="f17b15" value="5" <?php	echo set_value('f17b15', $f17b15) == 5 ? "checked" : "";?>/></td>
+										</tr>
+									</table>
+									<button onclick="backProsesFieldset7a()">Kembali</button>
+									<button onclick="prosesFieldset7a()">Selanjutnya</button>
+								<!-- </form>f17b1-->
+							</fieldset><!--fieldset7a-->
+
+							<!-- fieldset7b -->
+							<fieldset class="fieldset7b table-responsive" id="fieldset7b">
+								<!-- f17b2 -->
+								<!-- <form method="post" action="#"> -->
+									<table class="table" border="1">
+										<tr>
+											<td colspan="7"><b>Evaluasi Penilaian : Kontribusi Jurusan TIF UMM untuk pengembangan kemampuan Alumni (Prodi) (2/2)</b></td>
+										</tr>
+										<tr align="center" style="font-weight:bold">
+											<td>No.</td>
+											<td>Kompetensi</td>
+											<td>Sangat Rendah</td>
+											<td>Rendah</td>
+											<td>Cukup</td>
+											<td>Tinggi</td>
+											<td>Sangat Tinggi</td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-16 -->
+											<td>16.</td>
+											<td id="pinggir">Negosiasi</td>
+											<td><input type="radio" id="f17b16-1" name="f17b16" value="1" <?php	echo set_value('f17b16', $f17b16) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b16-2" name="f17b16" value="2" <?php	echo set_value('f17b16', $f17b16) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b16-3" name="f17b16" value="3" <?php	echo set_value('f17b16', $f17b16) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b16-4" name="f17b16" value="4" <?php	echo set_value('f17b16', $f17b16) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b16-5" name="f17b16" value="5" <?php	echo set_value('f17b16', $f17b16) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-17 -->
+											<td>17.</td>
+											<td id="pinggir">Kemampuan analisis</td>
+											<td><input type="radio" id="f17b17-1" name="f17b17" value="1" <?php	echo set_value('f17b17', $f17b17) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b17-2" name="f17b17" value="2" <?php	echo set_value('f17b17', $f17b17) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b17-3" name="f17b17" value="3" <?php	echo set_value('f17b17', $f17b17) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b17-4" name="f17b17" value="4" <?php	echo set_value('f17b17', $f17b17) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b17-5" name="f17b17" value="5" <?php	echo set_value('f17b17', $f17b17) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-18 -->
+											<td>18.</td>
+											<td id="pinggir">Toleransi</td>
+											<td><input type="radio" id="f17b18-1" name="f17b18" value="1" <?php	echo set_value('f17b18', $f17b18) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b18-2" name="f17b18" value="2" <?php	echo set_value('f17b18', $f17b18) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b18-3" name="f17b18" value="3" <?php	echo set_value('f17b18', $f17b18) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b18-4" name="f17b18" value="4" <?php	echo set_value('f17b18', $f17b18) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b18-5" name="f17b18" value="5" <?php	echo set_value('f17b18', $f17b18) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-19 -->
+											<td>19.</td>
+											<td id="pinggir">Kemampuan adaptasi</td>
+											<td><input type="radio" id="f17b19-1" name="f17b19" value="1" <?php	echo set_value('f17b19', $f17b19) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b19-2" name="f17b19" value="2" <?php	echo set_value('f17b19', $f17b19) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b19-3" name="f17b19" value="3" <?php	echo set_value('f17b19', $f17b19) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b19-4" name="f17b19" value="4" <?php	echo set_value('f17b19', $f17b19) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b19-5" name="f17b19" value="5" <?php	echo set_value('f17b19', $f17b19) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-20 -->
+											<td>20.</td>
+											<td id="pinggir">Loyalitas</td>
+											<td><input type="radio" id="f17b20-1" name="f17b20" value="1" <?php	echo set_value('f17b20', $f17b20) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b20-2" name="f17b20" value="2" <?php	echo set_value('f17b20', $f17b20) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b20-3" name="f17b20" value="3" <?php	echo set_value('f17b20', $f17b20) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b20-4" name="f17b20" value="4" <?php	echo set_value('f17b20', $f17b20) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b20-5" name="f17b20" value="5" <?php	echo set_value('f17b20', $f17b20) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-21 -->
+											<td>21.</td>
+											<td id="pinggir">Integritas</td>
+											<td><input type="radio" id="f17b21-1" name="f17b21" value="1" <?php	echo set_value('f17b21', $f17b21) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b21-2" name="f17b21" value="2" <?php	echo set_value('f17b21', $f17b21) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b21-3" name="f17b21" value="3" <?php	echo set_value('f17b21', $f17b21) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b21-4" name="f17b21" value="4" <?php	echo set_value('f17b21', $f17b21) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b21-5" name="f17b21" value="5" <?php	echo set_value('f17b21', $f17b21) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-22 -->
+											<td>22.</td>
+											<td id="pinggir">Bekerja dengan orang berbeda budaya maupun latar belakang</td>
+											<td><input type="radio" id="f17b22-1" name="f17b22" value="1" <?php	echo set_value('f17b22', $f17b22) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b22-2" name="f17b22" value="2" <?php	echo set_value('f17b22', $f17b22) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b22-3" name="f17b22" value="3" <?php	echo set_value('f17b22', $f17b22) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b22-4" name="f17b22" value="4" <?php	echo set_value('f17b22', $f17b22) == 4? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b22-5" name="f17b22" value="5" <?php	echo set_value('f17b22', $f17b22) == 5? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-23 -->
+											<td>23.</td>
+											<td id="pinggir">Kepemimpinan</td>
+											<td><input type="radio" id="f17b23-1" name="f17b23" value="1" <?php	echo set_value('f17b23', $f17b23) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b23-2" name="f17b23" value="2" <?php	echo set_value('f17b23', $f17b23) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b23-3" name="f17b23" value="3" <?php	echo set_value('f17b23', $f17b23) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b23-4" name="f17b23" value="4" <?php	echo set_value('f17b23', $f17b23) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b23-5" name="f17b23" value="5" <?php	echo set_value('f17b23', $f17b23) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-24 -->
+											<td>24.</td>
+											<td id="pinggir">Kemampuan dalam memegang tanggung jawab</td>
+											<td><input type="radio" id="f17b24-1" name="f17b24" value="1" <?php	echo set_value('f17b24', $f17b24) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b24-2" name="f17b24" value="2" <?php	echo set_value('f17b24', $f17b24) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b24-3" name="f17b24" value="3" <?php	echo set_value('f17b24', $f17b24) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b24-4" name="f17b24" value="4" <?php	echo set_value('f17b24', $f17b24) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b24-5" name="f17b24" value="5" <?php	echo set_value('f17b24', $f17b24) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-25 -->
+											<td>25.</td>
+											<td id="pinggir">Inisiatif</td>
+											<td><input type="radio" id="f17b25-1" name="f17b25" value="1" <?php	echo set_value('f17b25', $f17b25) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b25-2" name="f17b25" value="2" <?php	echo set_value('f17b25', $f17b25) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b25-3" name="f17b25" value="3" <?php	echo set_value('f17b25', $f17b25) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b25-4" name="f17b25" value="4" <?php	echo set_value('f17b25', $f17b25) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b25-5" name="f17b25" value="5" <?php	echo set_value('f17b25', $f17b25) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-26 -->
+											<td>26.</td>
+											<td id="pinggir">Manajemen proyek / program</td>
+											<td><input type="radio" id="f17b26-1" name="f17b26" value="1" <?php	echo set_value('f17b26', $f17b26) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b26-2" name="f17b26" value="2" <?php	echo set_value('f17b26', $f17b26) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b26-3" name="f17b26" value="3" <?php	echo set_value('f17b26', $f17b26) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b26-4" name="f17b26" value="4" <?php	echo set_value('f17b26', $f17b26) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b26-5" name="f17b26" value="5" <?php	echo set_value('f17b26', $f17b26) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-27 -->
+											<td>27.</td>
+											<td id="pinggir">Kemampuan memresentasikan ide / produk / laporan</td>
+											<td><input type="radio" id="f17b27-2" name="f17b27" value="1" <?php	echo set_value('f17b27', $f17b27) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b27-2" name="f17b27" value="2" <?php	echo set_value('f17b27', $f17b27) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b27-3" name="f17b27" value="3" <?php	echo set_value('f17b27', $f17b27) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b27-4" name="f17b27" value="4" <?php	echo set_value('f17b27', $f17b27) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b27-5" name="f17b27" value="5" <?php	echo set_value('f17b27', $f17b27) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-28 -->
+											<td>28.</td>
+											<td id="pinggir">Kemampuan dalam menulis laporan, memo, dan dokumen</td>
+											<td><input type="radio" id="f17b28-1" name="f17b28" value="1" <?php	echo set_value('f17b28', $f17b28) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b28-2" name="f17b28" value="2" <?php	echo set_value('f17b28', $f17b28) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b28-3" name="f17b28" value="3" <?php	echo set_value('f17b28', $f17b28) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b28-4" name="f17b28" value="4" <?php	echo set_value('f17b28', $f17b28) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b28-5" name="f17b28" value="5" <?php	echo set_value('f17b28', $f17b28) == 5 ? "checked" : "";?>/></td>
+										</tr>
+										<tr align="center">
+											<!-- f17b-29 -->
+											<td>29.</td>
+											<td id="pinggir">Kemampuan untuk terus belajar sepanjang hayat</td>
+											<td><input type="radio" id="f17b29-1" name="f17b29" value="1" <?php	echo set_value('f17b29', $f17b29) == 1 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b29-2" name="f17b29" value="2" <?php	echo set_value('f17b29', $f17b29) == 2 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b29-3" name="f17b29" value="3" <?php	echo set_value('f17b29', $f17b29) == 3 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b29-4" name="f17b29" value="4" <?php	echo set_value('f17b29', $f17b29) == 4 ? "checked" : "";?>/></td>
+											<td><input type="radio" id="f17b29-5" name="f17b29" value="5" <?php	echo set_value('f17b29', $f17b29) == 5 ? "checked" : "";?>/></td>
+										</tr>
+									</table>
+									<button onclick="backProsesFieldset7b()">Kembali</button>
+									<button onclick="prosesFieldset7b()">Selesai</button>
+								<!-- </form>f17b2-->
+							</fieldset><!--fieldset7b-->
+
+						<!-- </form> -->
+						<!-- form -->
+
+						<div class="row" id="terimakasih">
+							<div class="col-lg-12">
+								<h4>Terimakasih atas partisipasi Anda, dalam membantu mengisi Form Tracer Study Aluminium ini.</h4>
+								<h5>Partisipasi Anda akan membantu Kita untuk meningkatkan kualitas layanan pendidikan yang ada di Teknik Informatika UMM</h5>
+								<h5>Apaka anda ingin memperbarui data form tracer study yang telah Anda isi?</h5>
+								<h5>Klik Link di bawah ini untuk mulai memperbaruinya.</h5>
+								<h5><a href="#">Edit</a></h5>
+							</div>
+						</div>
+					</div><!--panel body-->
+				</div><!--panel form tracer study panel-default-->
+			</div><!--/.col-->
+		</div><!--/.row isi kontent form tracer study-->
+	</div>	<!--/.main container tracer study-->
+
+	<script src="<?php echo base_url('assets/js/jquery-1.11.1.min.js');?>"></script>
+	<script src="<?php echo base_url('assets/jquery/jquery.js');?>"></script>
+	<script src="<?php echo base_url('assets/jquery/jquery.min.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/bootstrap.min.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/chart.min.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/chart-data.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/easypiechart.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/easypiechart-data.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/bootstrap-datepicker.js');?>"></script>
+
+	<!--javascript indie aluminium -->
+	<!-- <script src="<?php echo base_url('assets/js/aluminium.js');?>"></script> -->
+	<!-- <script src="<?php echo base_url('assets/js/tes.js');?>"/></script> -->
+
+	<script type="text/javascript">
+			$(document).ready(function() {
+					$('[data-toggle="tooltip"]').tooltip();
+			});
+	</script>
+
+	<!--Icons-->
+	<script src="<?php echo base_url('assets/js/lumino.glyphs.js');?>"></script>
+
+	<!-- <script>
+		$('#calendar').datepicker({
+		});
+
+		!function ($) {
+		    $(document).on("click","ul.nav li.parent > a > span.icon", function(){
+		        $(this).find('em:first').toggleClass("glyphicon-minus");
+		    });
+		    $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+		}(window.jQuery);
+
+		$(window).on('resize', function () {
+		  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+		})
+		$(window).on('resize', function () {
+		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+		})
+	</script> -->
+</body>
+</html>

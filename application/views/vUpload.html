@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Tes Upload Image</title>
+  </head>
+  <body>
+    <center><h1>Membuat Upload File Dengan Codeigniter</h1></center>
+    <?php
+      echo $error;
+      echo form_open_multipart('Upload/aksi_upload');
+    ?>
+    <input type="file" name="berkas"/>
+    <br></br>
+    <input type="submit" value="upload"/>
+    <?php echo form_close();?>
+  </body>
+</html>

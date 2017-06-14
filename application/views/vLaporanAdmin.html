@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aluminium - Admin</title>
+
+<link href="<?php echo base_url('assets/css/bootstrap.min.css');?>" rel="stylesheet">
+<link href="<?php echo base_url('assets/css/datepicker3.css');?>" rel="stylesheet">
+<link href="<?php echo base_url('assets/css/styles.css');?>" rel="stylesheet">
+
+<!--Icons-->
+<script src="<?php echo base_url('assets/js/lumino.glyphs.js');?>"></script>
+
+<!-- Highcharts -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+<!-- <script src="<?php echo base_url('assets/js/bootstrap.min.js');?>"></script> -->
+<!-- <script src="<?php echo base_url('assets/js/highcharts.js');?>"></script> -->
+<script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
+
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]-->
+
+</head>
+
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="<?php echo site_url('Admin');?>"><span>Aluminium </span></a>
+				<ul class="user-menu">
+					<li class="dropdown pull-right">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>Admin <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="<?php echo site_url('Admin/profilAdmin');?>"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Profile</a></li>
+							<li><a href="<?php echo site_url('Alumni/logout');?>"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg> Logout</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+	<!-- navbar -->
+
+	<!-- sidebar -->
+	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+		<ul class="nav menu">
+			<li><a href="<?php echo site_url('Admin');?>"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
+			<li><a href="<?php echo site_url('Admin/alumni');?>"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Kelola Data Alumni</a></li>
+			<li><a href="<?php echo site_url('Agenda');?>"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg> Kelola Agenda</a></li>
+			<li><a href="<?php echo site_url('Admin/KelolaKarir');?>"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> Kelola Karir</a></li>
+			<li><a href="<?php echo site_url('Admin/KelolaTracerStudy');?>"><svg class="glyph stroked app-window-with-content"><use xlink:href="#stroked-app-window-with-content"></use></svg> Kelola Tracer Study</a></li>
+			<li><a href="<?php echo site_url('Stakeholders');?>"><svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"></use></svg> Kelola Stakeholders</a></li>
+			<li class="active"><a href="<?php echo site_url('Admin/laporan');?>"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"></use></svg> Laporan</a></li>
+		</ul>
+		<!-- <div class="attribution">Template by <a href="http://www.medialoot.com/item/lumino-admin-bootstrap-template/">Medialoot</a><br/><a href="http://www.glyphs.co" style="color: #333;">Icons by Glyphs</a></div> -->
+	</div>
+	<!--/.sidebar-->
+
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Laporan Tracer Study Admin</h1>
+			</div>
+		</div><!--/.row-->
+
+    <!-- diagram -->
+    <div class="row">
+      <div class="col-lg-12 table-responsive">
+        <div class="container" style="margin: auto; padding: 5px; width: auto; ">
+          <div class="grafik" id="container" style="border: 3px solid #DBDBDB;"></div>
+					<br>
+					<div class="grafik2" id="container" style="border: 3px solid #DBDBDB;"></div>
+					<br>
+					<div class="grafik3" id="container" style="border: 3px solid #DBDBDB;"></div>
+					<br>
+					<div class="grafik4" id="container" style="border: 3px solid #DBDBDB;"></div>
+				</div>
+      </div>
+    </div>
+
+    <!-- tes hasil query textare  -->
+    <!-- <div class="row">
+      <div class="col-lg-12">
+        <textarea name="name" rows="15" cols="130">
+        </textarea>
+      </div>
+    </div> -->
+  </div>	<!--/.main-->
+
+  <script type="text/javascript">
+	<?php
+		foreach ($num as $row){
+			$data[] = $row->jumlah;
+			$dataNama[] = $row->bulan;
+		}
+
+		foreach($kepuasan_tingkat_pendidikan as $row){
+			$dataKTP[] = $row->pilihanF16;
+		}
+
+		foreach($pendapatan as $row){
+			$dataP[] = $row->pilihanF13;
+		}
+
+	?>
+
+	// grafik1 Lama Waktu Tunggu untuk Pekerjaan Pertama
+	$('.grafik').highcharts({
+		chart:{
+			type: 'column',
+			marginTop: 50,
+			renderTo: 'container'
+		},
+		credits:{
+			enabled:false
+		},
+		tooltip:{
+			pointFormat: 'Jumlah : <b>{point.y} Orang</b>'
+		},
+		title:{
+			text: 'Lama Waktu Tunggu untuk Pekerjaan Pertama'
+		},
+		subtitle:{
+			text: 'Alumni Lulusan 2015-2016'
+		},
+		xAxis:{
+			categories:[<?php echo join($dataNama , ',')?>],
+			labels:{
+				style:{
+					fontSize: '24px',
+					fontFamily: 'Bauhaus 93 Regular'
+				}
+			}
+		},
+		yAxis:{
+			categories:['<div style="font-size:13px;font-weight:bold;-moz-transform:rotate(270deg);">Jumlah Alumni (Orang)</div>']
+		},
+		plotOptions:{
+			column:{
+				allowPointSelect: true,
+				cursor: 'pointer',
+				dataLabels:{
+					enabled:false
+				},
+				showInLegend: true
+			}
+		},
+		series:[{
+			name:['Waktu Tunggu untuk Pekerjaan Pertama (Bulan)'],
+			data:[	<?php echo join($data, ',')?>]
+		}]
+	});
+
+	// grafik2 Alumni yang sudah bekerja
+	var b1 = <?php echo $hasilBekerja;?>;
+	var b2 = <?php echo $hasilBelumBekerja;?>;
+
+		$('.grafik2').highcharts({
+      chart:{
+				events:{
+					load: function(event){
+						var total = b1 + b2;
+						var text = this.renderer.text(
+							'Total Alumni : ' +total+ ' Orang',
+							this.plotLeft,
+							this.plotTop
+						).attr({
+							zIndex: 5
+						}).add()
+					}
+				},
+        type: 'pie',
+        marginTop: 50,
+        renderTo: 'container'
+      },
+      credits:{
+        enabled:false
+      },
+      tooltip:{
+        pointFormat: '{series.name}: <b>{point.y} Orang</b>'
+      },
+      title:{
+        text: 'Perkembangan Alumni yang Sudah memperoleh Pekerjaan'
+      },
+      subtitle:{
+        text: 'Alumni Lulusan 2015-2016'
+      },
+      xAxis:{
+        categories:['Jumlah Alumni'],
+        labels:{
+          style:{
+            fontSize: '14px',
+            fontFamily: 'Verdana, sans-serif'
+          }
+        }
+      },
+			yAxis:{
+
+			},
+      legend:{
+				labelFormatter: function(){
+					var total = b1+b2;
+					if(this.name=='Sudah Bekerja')
+						return this.name + ' : ' + b1 + ' Orang';
+					else
+						return this.name + ' : ' + b2 + ' Orang';
+				}
+      },
+      plotOptions:{
+        pie:{
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels:{
+            enabled:false
+          },
+          showInLegend: true
+        }
+      },
+      series:[{
+				'name' : 'Jumlah Alumni',
+				'data' :[
+					['Sudah Bekerja', b1],
+					['Belum Bekerja', b2]
+				]
+			}]
+    });
+
+		// grafik3 : Gambaran Tingkat Pendidikan dengan Pekerjaan
+		var sangatErat = <?php echo $hasilSangatErat;?>;
+		var erat = <?php echo $hasilErat;?>;
+		var cukupErat = <?php echo $hasilCukupErat;?>;
+		var kurangErat = <?php echo $hasilKurangErat;?>;
+		var tidakSamaSekali = <?php echo $hasilTidakSamaSekali;?>;
+
+		$('.grafik3').highcharts({
+      chart:{
+				events:{
+					load: function(event){
+						var total = sangatErat + erat + cukupErat + kurangErat + tidakSamaSekali;
+						var text = this.renderer.text(
+							'Total Alumni yang sudah bekerja: ' +total+ ' Orang',
+							this.plotLeft,
+							this.plotTop
+						).attr({
+							zIndex: 5
+						}).add()
+					}
+				},
+        type: 'pie',
+        marginTop: 50
+      },
+      credits:{
+        enabled:false
+      },
+      tooltip:{
+        pointFormat: '{series.name}: <b>{point.y} Orang</b>'
+      },
+      title:{
+        text: 'Hubungan antara Bidang Studi dengan Pekerjaan Alumni'
+      },
+      subtitle:{
+        text: 'Alumni Lulusan 2015-2016'
+      },
+      xAxis:{
+        categories:['Puas'],
+        labels:{
+          style:{
+            fontSize: '14px',
+            fontFamily: 'Verdana, sans-serif'
+          }
+        }
+      },
+      legend:{
+				labelFormatter: function(){
+					if(this.name=='Sangat Erat')
+						return this.name + ' : ' + sangatErat + ' Orang';
+					else if(this.name=='Erat')
+						return this.name + ' : ' + erat + ' Orang';
+					else if(this.name=='Cukup Erat')
+						return this.name + ' : ' + cukupErat + ' Orang';
+					else if(this.name=='Kurang Erat')
+						return this.name + ' : ' + kurangErat + ' Orang';
+					else
+						return this.name + ' : ' + tidakSamaSekali + ' Orang';
+				}
+			},
+      plotOptions:{
+        pie:{
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels:{
+            enabled:false
+          },
+          showInLegend: true
+        }
+      },
+      series:[{
+				name:'Jumlah Alumni',
+				data:[
+					['Sangat Erat', sangatErat],
+					['Erat', erat],
+					['Cukup Erat', cukupErat],
+					['Kurang Erat', kurangErat],
+					['Tidak Sama Sekali', tidakSamaSekali]
+				]
+			}]
+    });
+
+		// grafik4
+		var p1 = <?php echo $hasilPendapatan02;?>;
+		var p2 = <?php echo $hasilPendapatan23;?>;
+		var p3 = <?php echo $hasilPendapatan34;?>;
+		var p4 = <?php echo $hasilPendapatan4;?>;
+
+		$('.grafik4').highcharts({
+			chart:{
+				events:{
+					load: function(event){
+						var total = p1+p2+p3+p4;
+						var text = this.renderer.text(
+							'Total Alumni yang sudah bekerja : ' +total+ ' Orang',
+							this.plotLeft,
+							this.plotTop
+						).attr({
+							zIndex: 5
+						}).add()
+					}
+				},
+				type: 'pie',
+				marginTop: 50,
+				renderTo: 'container'
+			},
+			credits:{
+				enabled:false
+			},
+			tooltip:{
+				pointFormat: '{series.name}: <b>{point.y} Orang</b>'
+			},
+			title:{
+				text: 'Kisaran Pendapatan'
+			},
+			subtitle:{
+				text: 'Alumni Lulusan 2015-2016'
+			},
+			xAxis:{
+				categories:['Jumlah Alumni'],
+				labels:{
+					style:{
+						fontSize: '12px',
+						fontFamily: 'Verdana, sans-serif'
+					}
+				}
+			},
+			legend: {
+				labelFormatter: function(){
+					var total = p1+p2+p3+p4;
+					if(this.name=='Rata / Bulan 0 - Rp1.999.999,-')
+						return this.name + ' : ' + p1 + ' Orang';
+					else if(this.name == 'Rata / Bulan Rp2.000.000,- - Rp2.999.999,-')
+						return this.name + ' : ' + p2 + ' Orang';
+					else if (this.name == 'Rata / Bulan Rp3.000.000,- - Rp3.999.999,-')
+						return this.name + ' : ' + p3 + ' Orang';
+					else
+						return this.name + ' : ' + p4 + ' Orang';
+				}
+ 			},
+			plotOptions:{
+				pie:{
+					allowPointSelect: true,
+					cursor: 'pointer',
+					dataLabels:{
+						enabled:false
+					},
+					showInLegend: true
+				}
+			},
+			series:[{
+				name:['Jumlah Alumni'],
+				data:[
+					['Rata / Bulan 0 - Rp1.999.999,-', p1],
+					['Rata / Bulan Rp2.000.000,- - Rp2.999.999,-', p2],
+					['Rata / Bulan Rp3.000.000,- - Rp3.999.999,-', p3],
+					['Rata / Bulan Rp4.000.000,- ke atas', p4]
+				]
+			}]
+		});
+  </script>
+	<script src="<?php echo base_url('assets/js/jquery-1.11.1.min.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/bootstrap.min.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/chart.min.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/chart-data.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/easypiechart.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/easypiechart-data.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/bootstrap-datepicker.js');?>"></script>
+	<!-- <script>
+		$('#calendar').datepicker({
+		});
+
+		!function ($) {
+		    $(document).on("click","ul.nav li.parent > a > span.icon", function(){
+		        $(this).find('em:first').toggleClass("glyphicon-minus");
+		    });
+		    $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+		}(window.jQuery);
+
+		$(window).on('resize', function () {
+		  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+		})
+		$(window).on('resize', function () {
+		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+		})
+	</script> -->
+</body>
+
+</html>

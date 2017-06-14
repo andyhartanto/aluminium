@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <title> Test Chart </title>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+        <script type="text/javascript" src="http://code.highcharts.com/modules/exporting.js"></script>
+        <style type="text/css">
+          .container { margin: auto; padding: 5px; width: 800px; border: 2px solid #DBDBDB; }
+        </style>
+        <script type="text/javascript">
+
+        </script>
+    </head>
+    <body>
+      <div class="container">
+        <div class="grafik" style="width:100%; height:400px;"></div>
+      </div>
+      <script type="text/javascript">
+    $('.grafik').highcharts({
+     chart: {
+      type: 'pie',
+      marginTop: 80
+     },
+     credits: {
+      enabled: false
+     },
+     tooltip: {
+      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+     },
+     title: {
+      text: 'JUMLAH SISWA SD TRITUNGGAL'
+     },
+     subtitle: {
+      text: 'TAHUN 2013 - 2015'
+     },
+     xAxis: {
+      categories: ['JUMLAH SISWA SD TRITUNGGAL'],
+      labels: {
+       style: {
+        fontSize: '10px',
+        fontFamily: 'Verdana, sans-serif'
+       }
+      }
+     },
+     legend: {
+      enabled: true
+     },
+     plotOptions: {
+       pie: {
+         allowPointSelect: true,
+         cursor: 'pointer',
+         dataLabels: {
+           enabled: false
+         },
+         showInLegend: true
+       }
+     },
+     series: [{
+       'name':'JUMLAH SISWA SD TRITUNGGAL',
+       'data':[
+         ['2013',469],
+         ['2014',658],
+         ['2015',628]
+       ]
+     }]
+    });
+  </script>
+    </body>
+</html>

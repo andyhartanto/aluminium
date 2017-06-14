@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title><?php echo $this->session->userdata("nama")?></title>
+</head>
+<body>
+	<h1>Login Berhasil</h1>
+	<h4>Hello <?php echo $this->session->userdata("nama")?></h4>
+	<a href="<?php echo site_url('Home/logout')?>">L:ogiyts</a>
+</body>

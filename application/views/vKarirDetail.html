@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aluminium - Karir</title>
+
+<link href="<?php echo base_url('assets/css/bootstrap.min.css');?>" rel="stylesheet">
+<link href="<?php echo base_url('assets/css/datepicker3.css');?>" rel="stylesheet">
+<link href="<?php echo base_url('assets/css/styles.css');?>" rel="stylesheet">
+
+<!--Icons-->
+<script src="<?php echo base_url('assets/js/lumino.glyphs.js');?>"></script>
+
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]-->
+
+<style>
+/* Style the Image Used to Trigger the Modal */
+#myImg {
+ border-radius: 5px;
+ cursor: pointer;
+ transition: 0.3s;
+}
+
+#myImg:hover {opacity: 0.7;}
+
+/* The Modal (background) */
+.modal {
+ display: none; /* Hidden by default */
+ position: fixed; /* Stay in place */
+ z-index: 1; /* Sit on top */
+ padding-top: 50px; /* Location of the box */
+ /*padding-left: 50px;*/
+ left: 0;
+ top: 0;
+ width: 100%; /* Full width */
+ height: 100%; /* Full height */
+ overflow: auto; /* Enable scroll if needed */
+ background-color: rgb(0,0,0); /* Fallback color */
+ background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modal-content {
+ margin: auto;
+ /*margin-left: 250px;*/
+ display: block;
+ width: 70%;
+ max-width: auto;
+}
+
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+#caption {
+ margin: auto;
+ display: block;
+ width: 80%;
+ max-width: 700px;
+ text-align: center;
+ color: #ccc;
+ padding: 10px 0;
+ height: 150px;
+}
+
+/* Add Animation - Zoom in the Modal */
+.modal-content, #caption {
+ -webkit-animation-name: zoom;
+ -webkit-animation-duration: 0.6s;
+ animation-name: zoom;
+ animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+ from {-webkit-transform:scale(0)}
+ to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+ from {transform:scale(0)}
+ to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+ position: relative;
+ top: 0px;
+ right: 0px;
+ /*top:autopx;
+ right: 200px;*/
+ color: #f1f1f1;
+ font-size: 70px;
+ font-weight: bold;
+ transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+ color: #bbb;
+ text-decoration: none;
+ cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+ .modal-content {
+		 width: 100%;
+ }
+}
+</style>
+</head>
+<body>
+	<div class="modal" id="myModal">
+		<span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+		<img class="modal-content" id="img01">
+		<div class="caption" id="caption"></div>
+	</div>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="<?php echo site_url('Alumni');?>"><span>Aluminium</span></a>
+				<ul class="user-menu">
+					<li class="dropdown pull-right">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> <?php echo $nama; ?> <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="<?php echo site_url('Alumni/profile_alumni');?>"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Profile</a></li>
+							<li><a href="<?php echo site_url('Alumni/logout');?>"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"></use></svg> Logout</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- container-fluid -->
+	</nav>
+
+  <!-- sidebar -->
+	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+		<ul class="nav menu">
+			<li><a href="<?php echo site_url('Alumni');?>"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
+			<li><a href="<?php echo site_url('TracerStudy');?>"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg> Tracer Study</a></li>
+			<li><a href="<?php echo site_url('Alumni/PersebaranAlumni');?>"><svg class="glyph stroked map"><use xlink:href="#stroked-map"></use></svg> Pencarian Alumni</a></li>
+			<li class="active"><a href="<?php echo site_url('Karir');?>"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> Informasi Karir</a></li>
+			<li><a href="<?php echo site_url('Alumni/Stakeholder');?>"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"></use></svg> Stakeholders</a></li>
+		</ul>
+		<!-- <div class="attribution">Template by <a href="http://www.medialoot.com/item/lumino-admin-bootstrap-template/">Medialoot</a><br/><a href="http://www.glyphs.co" style="color: #333;">Icons by Glyphs</a></div> -->
+	</div>
+	<!--/.sidebar-->
+
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Informasi Karir (Detail)</h1>
+			</div>
+		</div><!--/.row-->
+
+		<!-- row  kembali ke daftar karir-->
+		<div class="row">
+			<div class="col-lg-12 table-responsive">
+        <table class="table">
+          <?php foreach($karir->result() as $row):?>
+          <tr>
+            <td><h4 ><?php echo anchor('Karir/index', '<< Kembali Ke Informasi Karir');?></h4></td>
+          </tr>
+
+          <!-- nama perusahaan -->
+          <tr>
+            <td>
+              <h4>Nama Perusahaan / Instansi <output name="result"><?php echo $row->namaPerusahaan;?></output></h4>
+            </td>
+          </tr>
+
+          <!-- posisi -->
+          <tr>
+            <td>
+              <h4>Posisi yang dibutuhkan <output name="result"><?php echo $row->posisi;?></output></h4>
+            </td>
+          </tr>
+
+          <tr>
+        	  <td>
+              <h4>Kriteria / Persyaratan / Keterangan : </h4>
+              <output name="result">
+                <!-- <textarea readonly="true" name="name" rows="8" cols="80"></textarea> -->
+                <p><?php echo $row->kriteria;?></p>
+              </output>
+            </td>
+        	</tr>
+
+          <tr>
+            <td>
+              <h4>Batas Waktu : <output name="result"><?php echo $row->batasWaktu;?></output></h4>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <h4>Kontak yang dapat dihubungi : </h4>
+              <textarea readonly="true" name="name" rows="3" cols="80"><?php echo $row->kontak;?></textarea>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <h5>Gambar : </h5>
+              <img id="myImg" src="<?php echo base_url('assets/img/karier/'.$row->gambar);?>" height="10%" width="10%" alt=""></img>
+            </td>
+          </tr>
+    		<?php endforeach;?>
+        </table>
+			</div>
+		</div>
+		<!-- row  -->
+	</div>	<!--/.main-->
+
+	<script src="<?php echo base_url('assets/js/jquery-1.11.1.min.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/bootstrap.min.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/chart.min.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/chart-data.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/easypiechart.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/easypiechart-data.js');?>"></script>
+	<script src="<?php echo base_url('assets/js/bootstrap-datepicker.js');?>"></script>
+	<script type="text/javascript">
+	// Get the modal
+	var modal = document.getElementById('myModal');
+
+	// Get the image and insert it inside the modal - use its "alt" text as a caption
+  var sidebar = document.getElementById('sidebar-collapse');
+  var img = document.getElementById('myImg');
+	var modalImg = document.getElementById("img01");
+	var captionText = document.getElementById("caption");
+	img.onclick = function(){
+		modal.style.display = "block";
+    sidebar.style.display = "none";
+		modalImg.src = this.src;
+		captionText.innerHTML = this.alt;
+
+	}
+
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+		modal.style.display = "none";
+    sidebar.style.display = "block";
+	}
+	</script>
+	<script>
+		// $('#calendar').datepicker({
+		// });
+		//
+		// !function ($) {
+		//     $(document).on("click","ul.nav li.parent > a > span.icon", function(){
+		//         $(this).find('em:first').toggleClass("glyphicon-minus");
+		//     });
+		//     $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+		// }(window.jQuery);
+		//
+		// $(window).on('resize', function () {
+		//   if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+		// })
+		// $(window).on('resize', function () {
+		//   if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+		// })
+	</script>
+</body>
+
+</html>
